@@ -1,6 +1,7 @@
 ﻿using BankWebbApp.Data;
 using BankWebbApp.Models;
-using BankWebbApp.Services;
+using BankWebbApp.Repository;
+
 using BankWebbApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,13 +14,13 @@ namespace BankWebbApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccount _Account;
+        private readonly IAccountRepository _accountRepository;
         private readonly ApplicationDbContext _dbContext;
 
-        public AccountController(ApplicationDbContext dbContext ,IAccount _IAccount)
+        public AccountController(ApplicationDbContext dbContext , IAccountRepository accountRepository)
         {
             _dbContext = dbContext;
-            _Account = _IAccount;
+            _accountRepository = accountRepository;
         }
         public IActionResult Index(string q)
         {

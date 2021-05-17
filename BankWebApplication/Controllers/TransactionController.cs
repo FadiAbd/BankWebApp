@@ -1,4 +1,5 @@
 ﻿using BankWebbApp.Data;
+using BankWebbApp.Repository;
 using BankWebbApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,11 +12,13 @@ namespace BankWebbApp.Controllers
     public class TransactionController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
-        
+        private readonly ITransactionRepository _transactionRepository;
 
-        public TransactionController(ApplicationDbContext dbContext)
+        public TransactionController(ApplicationDbContext dbContext,ITransactionRepository transactionRepository)
         {
             _dbContext = dbContext;
+            _transactionRepository = transactionRepository;
+
 
         }
 

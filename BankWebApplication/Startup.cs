@@ -1,6 +1,7 @@
 using BankWebbApp.Data;
+using BankWebbApp.Models;
 using BankWebbApp.Repository;
-using BankWebbApp.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,8 +38,9 @@ namespace BankWebbApp
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddTransient<ICustomer, CustomerRepository>();
-            services.AddTransient<IAccount, AccountRepository>();
+            services.AddTransient<ICustomerRepository,CustomerRepository>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddTransient<ITransactionRepository, TransactionRepository>();
 
         }
 

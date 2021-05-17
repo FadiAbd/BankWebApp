@@ -24,8 +24,8 @@ namespace BankWebbApp.ViewModels
             public string Emailaddress { get; set; }
 
             public virtual ICollection<Disposition> Dispositions { get; set; }
-            //public List<CustomerIndexViewModel> Customers { get; set; } = new List<CustomerIndexViewModel>();
-            //public List<AccountIndexViewModel> Accounts { get; set; } = new List<AccountIndexViewModel>();
+            public List<CustomerIndexViewModel> Customers { get; set; } = new List<CustomerIndexViewModel>();
+            public List<AccountIndexViewModel> Accounts { get; set; } = new List<AccountIndexViewModel>();
         }
 
       

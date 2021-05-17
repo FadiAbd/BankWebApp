@@ -1,8 +1,11 @@
 ﻿using BankWebbApp.Data;
 using BankWebbApp.Models;
+using BankWebbApp.Repository;
 using BankWebbApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,21 +15,29 @@ namespace BankWebbApp.Controllers
 {
     public class CustomerController : Controller
     {
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IAccountRepository _accountRepository;
         private readonly ApplicationDbContext _dbContext;
         public double totalRowCount { get; private set; }
 
-        public CustomerController(ApplicationDbContext dbContext)
+        public CustomerController(ApplicationDbContext dbContext,ICustomerRepository customerRepository, IAccountRepository accountRepository)
         {
             _dbContext = dbContext;
-
+            _customerRepository = customerRepository;
+            _accountRepository = accountRepository;
         }
-        public IActionResult Index(string q,string sortField, string sortOrder,int page = 1)
+        public IActionResult Index(int id,string q,string sortField, string sortOrder,int page = 1)
         {
             var viewModel = new CustomerIndexViewModel();
 
+           
+                     _dbContext.Customers
+                    .Include(a => a.Dispositions)
+                    .ThenInclude(a => a.Account)
+                    .FirstOrDefault(a => a.CustomerId == id);
             var query = _dbContext.Customers
 
-                .Where(r => q == null || r.Givenname.Contains(q) || r.City.Contains(q) || r.Streetaddress.Contains(q)
+               .Where(r => q == null || r.Givenname.Contains(q) || r.City.Contains(q) || r.Streetaddress.Contains(q)
                  || r.NationalId.Contains(q));
             
                 int totalCount = query.Count();
@@ -86,6 +97,8 @@ namespace BankWebbApp.Controllers
                 Streetaddress = f.Streetaddress,
                 City = f.City,
                 
+                
+                
                  }).ToList();
             viewModel.q = q;
             viewModel.sortOrder = sortOrder;
@@ -104,9 +117,56 @@ namespace BankWebbApp.Controllers
             viewModel.Gender = selectedCustomer.Gender;
             viewModel.Givenname = selectedCustomer.Givenname;
             viewModel.Surname = selectedCustomer.Surname;
+           
 
 
 
+
+
+            return View(viewModel);
+        }
+
+        public IActionResult CustomerPage(int id)
+        {
+            var viewModel = new CustomerPageViewModel();
+            if(_customerRepository.GetAllCustomers().Include(x => x.Dispositions)
+                .FirstOrDefault(r => r.CustomerId == id) == null)
+            {
+                viewModel.FinnsInte = true;
+                return View(viewModel);
+            }
+            var p = _customerRepository.GetAllCustomers().Include(x => x.Dispositions)
+                .First(r => r.CustomerId == id);
+
+            viewModel.CustomerId = p.CustomerId;
+            viewModel.Gender = p.Gender;
+            viewModel.Givenname = p.Givenname;
+            viewModel.Surname = p.Surname;
+            viewModel.NationalId = p.NationalId;
+            viewModel.Streetaddress = p.Streetaddress;
+            viewModel.Birthday = p.Birthday;
+            viewModel.City = p.City;
+            viewModel.Country = p.Country;
+            viewModel.CountryCode = p.CountryCode;
+            viewModel.Emailaddress = p.Emailaddress;
+            viewModel.Telephonecountrycode = p.Telephonecountrycode;
+            viewModel.Telephonenumber = p.Telephonenumber;
+            viewModel.Zipcode = p.Zipcode;
+
+            var dispAcc = p.Dispositions.ToList();
+
+            foreach(var d in dispAcc)
+            {
+                var account = new CustomerAccountViewModel();
+                var dbacc = _accountRepository.GetAllAccounts().First(n => n.AccountId.Equals(d.AccountId));
+                account.AccountId = dbacc.AccountId;
+                account.Balance = dbacc.Balance;
+                account.Created = dbacc.Created;
+                account.Frequency = dbacc.Frequency;
+
+                viewModel.Account.Add(account);
+            }
+            viewModel.SumOffCustomerAccounts = viewModel.Account.Sum(x => x.Balance);
 
 
             return View(viewModel);
