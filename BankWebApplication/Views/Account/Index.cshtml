@@ -1,0 +1,52 @@
+﻿@model BankWebbApp.ViewModels.AccountIndexViewModel
+
+@{ ViewData["Title"] = "Accounts"; }
+
+<div class="col-lg-12 mb-5">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="h6 text-uppercase mb-0">Accounts</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">AccountId</th>
+                        <th scope="col">Frequency </th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Balance</th>
+
+                        @*<th scope="col">Dispositions</th>
+                        <th scope="col">Loans </th>
+                        <th scope="col">PermenentOrders</th>*@
+                        <th scope="col">Transactions</th>
+
+                    </tr>  
+                    @foreach (var acc in Model.Accounts)
+                    {
+                <tr>
+                    <td>@acc.AccountId</td>
+                    <td>@acc.Frequency</td>
+                    <td>@acc.Created</td>
+                    <td>@acc.Balance</td>
+                    @*<td>@acc.Dispositions</td>
+                    <td>@acc.Loans</td>
+                    <td>@acc.PermenentOrders</td>*@
+                    <td>@acc.Transactions</td>
+                    @*<td><a href="#" onclick="FetchOrderStatus(@acc.AccountId);return false;" class="btn btn-secondary active" role="button" aria-pressed="true">Select</a></td>
+        <td><a asp-controller="Account" asp-action="Edit" asp-route-Id="@acc.AccountId" class="btn btn-secondary active" role="button" aria-pressed="true">Edit</a></td>*@
+                </tr>}
+                </thead>
+                <tbody>
+                 
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+
