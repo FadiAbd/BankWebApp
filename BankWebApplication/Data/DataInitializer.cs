@@ -17,7 +17,24 @@ namespace BankWebbApp.Data
             SeedAccounts(dbContext);
             SeedUsers(userManager, dbContext);
             SeedTransactions(dbContext);
+            SeedRoles(dbContext);
 
+        }
+
+        private static void SeedRoles(ApplicationDbContext dbContext)
+        {
+            var role = dbContext.Roles.FirstOrDefault(r => r.Name == "Admin");
+            if (role == null)
+            {
+                dbContext.Roles.Add(new IdentityRole { Name = "Admin", NormalizedName = "Admin" });
+            }
+
+            role = dbContext.Roles.FirstOrDefault(r => r.Name == "Cashier");
+            if (role == null)
+            {
+                dbContext.Roles.Add(new IdentityRole { Name = "Cashier", NormalizedName = "Cashier" });
+            }
+            dbContext.SaveChanges();
         }
 
         private static void SeedTransactions(ApplicationDbContext dbContext)

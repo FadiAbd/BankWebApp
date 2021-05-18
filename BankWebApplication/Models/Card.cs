@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -7,7 +8,9 @@ namespace BankWebbApp.Models
 {
     public partial class Card
     {
+        
         public int CardId { get; set; }
+        
         public int DispositionId { get; set; }
         public string Type { get; set; }
         public DateTime Issued { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -7,7 +8,9 @@ namespace BankWebbApp.Models
 {
     public partial class PermenentOrder
     {
+       
         public int OrderId { get; set; }
+       
         public int AccountId { get; set; }
         public string BankTo { get; set; }
         public string AccountTo { get; set; }

@@ -11,6 +11,7 @@ namespace BankWebbApp.Repository
 {
     public interface IAccountRepository
     {
+  
 
         List<Account> GetAllAccounts();
     }

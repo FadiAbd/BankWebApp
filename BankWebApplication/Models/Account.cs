@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -14,7 +15,7 @@ namespace BankWebbApp.Models
             PermenentOrders = new HashSet<PermenentOrder>();
             Transactions = new HashSet<Transaction>();
         }
-
+        
         public int AccountId { get; set; }
         public string Frequency { get; set; }
         public DateTime Created { get; set; }

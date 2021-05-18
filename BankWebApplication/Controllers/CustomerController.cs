@@ -129,13 +129,13 @@ namespace BankWebbApp.Controllers
         public IActionResult CustomerPage(int id)
         {
             var viewModel = new CustomerPageViewModel();
-            if(_customerRepository.GetAllCustomers().Include(x => x.Dispositions)
+            if(_customerRepository.GetAllCustomers()/*.Include(x => x.Dispositions)*/
                 .FirstOrDefault(r => r.CustomerId == id) == null)
             {
                 viewModel.FinnsInte = true;
                 return View(viewModel);
             }
-            var p = _customerRepository.GetAllCustomers().Include(x => x.Dispositions)
+            var p = _customerRepository.GetAllCustomers()/*.Include(x => x.Dispositions)*/
                 .First(r => r.CustomerId == id);
 
             viewModel.CustomerId = p.CustomerId;
@@ -172,42 +172,42 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
 
-        public IActionResult CustomerDetails(string q)
-        {
+        //public IActionResult CustomerDetails(string q)
+        //{
             
 
-            var viewModel = new CustomerIndexViewModel();
+        //    var viewModel = new CustomerIndexViewModel();
 
-            viewModel.Customers = _dbContext.Customers.Where(r => q == null || r.Givenname.Contains(q)
+        //    viewModel.Customers = _dbContext.Customers.Where(r => q == null || r.Givenname.Contains(q)
            
-                 || r.NationalId.Contains(q))
-                .Select(dbC => new CustomerViewModel
-                {
-                    CustomerId = dbC.CustomerId,
-                    Gender = dbC.Gender,
-                    Givenname = dbC.Givenname,
-                    Surname = dbC.Surname,
-                    NationalId = dbC.NationalId,
-                    Streetaddress = dbC.Streetaddress,
-                    Birthday = dbC.Birthday,
-                    City = dbC.City,
-                    Country = dbC.Country,
-                    CountryCode = dbC.CountryCode,
-                    Emailaddress = dbC.Emailaddress,
-                    Telephonecountrycode = dbC.Telephonecountrycode,
-                    Telephonenumber = dbC.Telephonenumber,
-                    Zipcode = dbC.Zipcode,
+        //         || r.NationalId.Contains(q))
+        //        .Select(dbC => new CustomerViewModel
+        //        {
+        //            CustomerId = dbC.CustomerId,
+        //            Gender = dbC.Gender,
+        //            Givenname = dbC.Givenname,
+        //            Surname = dbC.Surname,
+        //            NationalId = dbC.NationalId,
+        //            Streetaddress = dbC.Streetaddress,
+        //            Birthday = dbC.Birthday,
+        //            City = dbC.City,
+        //            Country = dbC.Country,
+        //            CountryCode = dbC.CountryCode,
+        //            Emailaddress = dbC.Emailaddress,
+        //            Telephonecountrycode = dbC.Telephonecountrycode,
+        //            Telephonenumber = dbC.Telephonenumber,
+        //            Zipcode = dbC.Zipcode,
                     
                     
                     
 
 
 
-                }).ToList();
+        //        }).ToList();
 
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
 
 

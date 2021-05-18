@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -11,9 +12,11 @@ namespace BankWebbApp.Models
         {
             Cards = new HashSet<Card>();
         }
-
+       
         public int DispositionId { get; set; }
+       
         public int CustomerId { get; set; }
+       
         public int AccountId { get; set; }
         public string Type { get; set; }
 

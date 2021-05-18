@@ -15,12 +15,16 @@ namespace BankWebbApp.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly ITransactionRepository _transactionReposetory;
+
         private readonly ApplicationDbContext _dbContext;
 
-        public AccountController(ApplicationDbContext dbContext , IAccountRepository accountRepository)
+        public AccountController( ApplicationDbContext dbContext, IAccountRepository accountRepository,ITransactionRepository transactionRepository)
         {
             _dbContext = dbContext;
             _accountRepository = accountRepository;
+            _transactionReposetory = transactionRepository;
+            
         }
         public IActionResult Index(string q)
         {
@@ -35,14 +39,14 @@ namespace BankWebbApp.Controllers
                    Created = dbAcc.Created,
                    Transactions = dbAcc.Transactions,
                    
-                   
-                    
-                  
-
-
                }).ToList();
                
             return View(viewModel);
+        }
+        public IActionResult AccountPage()
+        {
+
+            return View();
         }
     }
 }
