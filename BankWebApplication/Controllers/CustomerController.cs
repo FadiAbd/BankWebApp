@@ -2,6 +2,7 @@
 using BankWebbApp.Models;
 using BankWebbApp.Repository;
 using BankWebbApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,23 +16,23 @@ namespace BankWebbApp.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly ICustomerRepository _customerRepository;
-        private readonly IAccountRepository _accountRepository;
+        private readonly ICustomerRepository _customer;
+        private readonly IAccountRepository _account;
         private readonly ApplicationDbContext _dbContext;
         public double totalRowCount { get; private set; }
 
-        public CustomerController(ApplicationDbContext dbContext,ICustomerRepository customerRepository, IAccountRepository accountRepository)
+        public CustomerController( ApplicationDbContext dbContext,ICustomerRepository customer, IAccountRepository account)
         {
             _dbContext = dbContext;
-            _customerRepository = customerRepository;
-            _accountRepository = accountRepository;
+            _customer = customer;
+            _account = account;
         }
         public IActionResult Index(int id,string q,string sortField, string sortOrder,int page = 1)
         {
             var viewModel = new CustomerIndexViewModel();
 
-           
-                     _dbContext.Customers
+
+                    _dbContext.Customers
                     .Include(a => a.Dispositions)
                     .ThenInclude(a => a.Account)
                     .FirstOrDefault(a => a.CustomerId == id);
@@ -109,33 +110,35 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
-        public IActionResult _SelectCustomer(int selectedId)
-        {
-            var viewModel = new SelectCustomerViewModel();
-            var selectedCustomer = _dbContext.Customers.First(r => r.CustomerId == selectedId );
+        //public IActionResult _SelectCustomer(int selectedId)
+        //{
+        //    var viewModel = new SelectCustomerViewModel();
+        //    var selectedCustomer = _dbContext.Customers.First(r => r.CustomerId == selectedId );
 
-            viewModel.Gender = selectedCustomer.Gender;
-            viewModel.Givenname = selectedCustomer.Givenname;
-            viewModel.Surname = selectedCustomer.Surname;
+        //    viewModel.Gender = selectedCustomer.Gender;
+        //    viewModel.Givenname = selectedCustomer.Givenname;
+        //    viewModel.Surname = selectedCustomer.Surname;
            
 
 
 
 
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
+        //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Cashier")]
 
         public IActionResult CustomerPage(int id)
         {
             var viewModel = new CustomerPageViewModel();
-            if(_customerRepository.GetAllCustomers()/*.Include(x => x.Dispositions)*/
+            if(_customer.GetAllCustomers().Include(x => x.Dispositions)
                 .FirstOrDefault(r => r.CustomerId == id) == null)
             {
-                viewModel.FinnsInte = true;
+                viewModel.DoNotExist = true;
                 return View(viewModel);
             }
-            var p = _customerRepository.GetAllCustomers()/*.Include(x => x.Dispositions)*/
+            var p = _customer.GetAllCustomers().Include(x => x.Dispositions)
                 .First(r => r.CustomerId == id);
 
             viewModel.CustomerId = p.CustomerId;
@@ -158,7 +161,7 @@ namespace BankWebbApp.Controllers
             foreach(var d in dispAcc)
             {
                 var account = new CustomerAccountViewModel();
-                var dbacc = _accountRepository.GetAllAccounts().First(n => n.AccountId.Equals(d.AccountId));
+                var dbacc = _account.GetAllAccounts().First(n => n.AccountId.Equals(d.AccountId));
                 account.AccountId = dbacc.AccountId;
                 account.Balance = dbacc.Balance;
                 account.Created = dbacc.Created;

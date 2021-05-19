@@ -11,7 +11,12 @@ namespace BankWebbApp.Repository
 {
     public interface ITransactionRepository
     {
+        IQueryable<Transaction> GetAllTransactions();
+        public void AddTransaction(Transaction dbTransaction);
+        public void DeleteTransaction(Transaction DeleteTransaction);
+        public void Save();
 
-        List<Transaction> GetAllTransactions();
+
+        
     }
 }

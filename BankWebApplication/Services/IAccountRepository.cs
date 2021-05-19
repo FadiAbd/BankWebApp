@@ -11,8 +11,12 @@ namespace BankWebbApp.Repository
 {
     public interface IAccountRepository
     {
-  
+        IQueryable<Account> GetAllAccounts();
+        public void AddAccounts(Account dbAccount);
+        public void DeleteCustomer(Account DeleteAccount);
+        public void Save();
 
-        List<Account> GetAllAccounts();
+
+
     }
 }

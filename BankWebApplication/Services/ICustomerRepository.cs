@@ -9,7 +9,11 @@ namespace BankWebbApp.Repository
 {
     public interface ICustomerRepository
     {
+        IQueryable<Customer> GetAllCustomers();
+        public void AddCustomer(Customer dbCustomer);
+        public void DeleteCustomer(Customer DeleteCustomer);
+        public void Save();
 
-        List<Customer> GetAllCustomers();
+       
     }
 }

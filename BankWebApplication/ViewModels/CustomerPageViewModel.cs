@@ -25,7 +25,7 @@ namespace BankWebbApp.ViewModels
         public List<CustomerViewModel> Customers { get; set; } = new List<CustomerViewModel>();
         public List<CustomerAccountViewModel> Account { get; set; } = new List<CustomerAccountViewModel>();
         public decimal  SumOffCustomerAccounts { get;set;}
-        public bool FinnsInte { get; set; }
+        public bool DoNotExist { get; set; }
        
     }
 }
