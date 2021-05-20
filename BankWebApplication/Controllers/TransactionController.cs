@@ -22,23 +22,23 @@ namespace BankWebbApp.Controllers
 
         }
 
-       
-        public IActionResult Index(string q)
-        {
-            var viewModel = new TransactionIndexViewModel();
-            viewModel.Transactions = _dbContext.Transactions
-                .Where(r => q == null || r.Account.Contains(q) || r.Bank.Contains(q))
-                .Select(transaction => new TransactionViewModel
-                {
-                  AccountId = transaction.AccountId,
-                  Date = transaction.Date,
-                  Amount = transaction.Amount,
-                  Balance = transaction.Balance,
-                  Bank =transaction.Bank
 
-                }).ToList();
+        //public IActionResult Index(string q)
+        //{
+        //    var viewModel = new TransactionIndexViewModel();
+        //    viewModel.Transactions = _dbContext.Transactions
+        //        .Where(r => q == null || r.Account.Contains(q) || r.Bank.Contains(q))
+        //        .Select(transaction => new TransactionViewModel
+        //        {
+        //            AccountId = transaction.AccountId,
+        //            Date = transaction.Date,
+        //            Amount = transaction.Amount,
+        //            Balance = transaction.Balance,
+        //            Bank = transaction.Bank
 
-                return View(viewModel);
-        }
+        //        }).ToList();
+
+        //    return View(viewModel);
+        //}
     }
 }

@@ -14,7 +14,7 @@ namespace BankWebbApp.Repository
             _dbContext = dbContext;
         }
 
-        public IQueryable<Customer> GetAllCustomers()
+        public IQueryable<Customer> GetAllCustomer()
         {
             return _dbContext.Customers;
         }

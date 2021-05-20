@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace BankWebbApp.ViewModels
 {
-    public partial class AccountIndexViewModel
-    {
+   
+    
         public class AccountViewModel
         {
 
@@ -25,5 +25,5 @@ namespace BankWebbApp.ViewModels
         }
       
 
-    }
+    
 }

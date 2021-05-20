@@ -14,18 +14,28 @@ namespace BankWebbApp.Repository
             _dbContext = dbContext;
         }
 
-        public IQueryable<Transaction> GetAllTransactions()
+        public void AddTransaction(Transaction dbTransaction)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteTransaction(Transaction DeleteTransaction)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IQueryable<Transaction> GetAllTransaction()
         {
             return (IQueryable<Transaction>)_dbContext.Transactions;
         }
-        public void AddTransaction(Transaction dbTransaction)
-        {
-            _dbContext.Transactions.Add(dbTransaction);
-        }
-        public void DeleteTransaction(Transaction DeleteTransaction)
-        {
-            _dbContext.Transactions.Remove(DeleteTransaction);
-        }
+        //public void AddTransaction(Transaction dbTransaction)
+        //{
+        //    _dbContext.Transactions.Add(dbTransaction);
+        //}
+        //public void DeleteTransaction(Transaction DeleteTransaction)
+        //{
+        //    _dbContext.Transactions.Remove(DeleteTransaction);
+        //}
         public void Save()
         {
             _dbContext.SaveChanges();

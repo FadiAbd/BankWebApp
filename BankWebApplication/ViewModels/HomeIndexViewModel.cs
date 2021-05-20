@@ -10,6 +10,7 @@ namespace BankWebbApp.ViewModels
         public int AllCustomers  { get; set; }
         public int AllAccounts { get; set; }
         public int TotalBalanceAllAccounts { get; set; }
+
         public List<HomeIndexViewModel> Balance = new List<HomeIndexViewModel>();
     }
 }

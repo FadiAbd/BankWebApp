@@ -38,7 +38,7 @@ namespace BankWebbApp
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddTransient<ICustomerRepository,CustomerRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
 

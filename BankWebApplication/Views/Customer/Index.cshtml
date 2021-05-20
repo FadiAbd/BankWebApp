@@ -180,23 +180,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var customerViewModel in Model.Customers)
+                                @foreach (var customer in Model.Customers)
                                 {
-                                <tr>
-                                    <td>@customerViewModel.CustomerId</td>
+                            <tr>
+                                <td>@customer.CustomerId</td>
 
-                                    <td>@customerViewModel.Givenname</td>
-                                    <td>@customerViewModel.NationalId</td>
-                                    <td>@customerViewModel.Streetaddress</td>
-                                    <td>@customerViewModel.City</td>
-                                    @*<td><a href="#" onclick="FetchOrderStatus(@customerViewModel.CustomerId);return false;" class="btn btn-outline-primary active" role="button" aria-pressed="true">CustomerDetail</a></td>*@
-                                    <td><a asp-controller="Customer" asp-action="CustomerPage" class="btn btn-secondary active" role="button" aria-pressed="true">Customer page</a></td>
+                                <td>@customer.Givenname</td>
+                                <td>@customer.NationalId</td>
+                                <td>@customer.Streetaddress</td>
+                                <td>@customer.City</td>
 
-
-
-
-                                </tr>
-                                }
+                                
+          
+                            <td><a asp-controller="Customer" asp-action="CustomerDetails" asp-route-Id="@customer.CustomerId" class="btn btn-secondary active" role="button" aria-pressed="true">Customer Accounts</a></td>
+                            </tr>
+                            }
 
                             </tbody>
                             <tfoot>

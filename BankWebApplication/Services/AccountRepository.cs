@@ -15,11 +15,11 @@ namespace BankWebbApp.Repository
             _dbContext = dbContext;
         }
 
-        public IQueryable<Account> GetAllAccounts()
+        public IQueryable<Account> GetAllAccount()
         {
             return _dbContext.Accounts;
         }
-        public void AddAccounts(Account dbAccount)
+        public void AddAccount(Account dbAccount)
         {
             _dbContext.Accounts.Add(dbAccount);
         }

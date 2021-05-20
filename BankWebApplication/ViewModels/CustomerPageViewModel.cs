@@ -22,10 +22,10 @@ namespace BankWebbApp.ViewModels
         public string Telephonecountrycode { get; set; }
         public string Telephonenumber { get; set; }
         public string Emailaddress { get; set; }
-        public List<CustomerViewModel> Customers { get; set; } = new List<CustomerViewModel>();
+        //public List<CustomerViewModel> Customers { get; set; } = new List<CustomerViewModel>();
         public List<CustomerAccountViewModel> Account { get; set; } = new List<CustomerAccountViewModel>();
-        public decimal  SumOffCustomerAccounts { get;set;}
+        public decimal SumOffCustomerAccounts { get; set; }
         public bool DoNotExist { get; set; }
-       
+
     }
 }

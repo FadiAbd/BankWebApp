@@ -18,7 +18,7 @@ namespace BankWebbApp.Controllers
         private readonly ITransactionRepository _transaction;
 
         private readonly ApplicationDbContext _dbContext;
-        private readonly object _customer;
+     
 
         public AccountController( ApplicationDbContext dbContext, IAccountRepository account,ITransactionRepository transaction)
         {
@@ -44,43 +44,43 @@ namespace BankWebbApp.Controllers
                
             return View(viewModel);
         }
-        public IActionResult AccountPage(int id)
-        {
-            var viewModel = new AccountPageViewModel();
-            if (_account.GetAllAccounts().Include(x => x.Transactions)
-                .FirstOrDefault(r => r.CustomerId == id) == null)
-            {
-                viewModel.DoNotExist = true;
-                return View(viewModel);
-            }
-            var p = _account.GetAllAccounts().Include(x => x.Transactions)
-                .First(r => r.CustomerId == id);
+    //    public IActionResult AccountPage(int id)
+    //    {
+    //        var viewModel = new AccountPageViewModel();
+    //        if (_account.GetAllAccounts().Include(x => x.Transactions)
+    //            .FirstOrDefault(r => r.CustomerId == id) == null)
+    //        {
+    //            viewModel.DoNotExist = true;
+    //            return View(viewModel);
+    //        }
+    //        var p = _account.GetAllAccounts().Include(x => x.Transactions)
+    //            .First(r => r.AccountId == id);
 
-            viewModel.AccountId = p.CustomerId;
-            viewModel.Balance = p.Gender;
-            //viewModel. = p.;
-            //viewModel. = p.;
+    //        viewModel.AccountId = p.AccountId;
+    //        viewModel.Balance = p.Balance;
+    //        //viewModel. = p.;
+    //        //viewModel. = p.;
            
 
-            var dispAcc = p.Dispositions.ToList();
+    //        var accTr = p.Transactions.ToList();
 
-            foreach (var d in dispAcc)
-            {
-                var account = new CustomerAccountViewModel();
-                var dbacc = _transaction.GetAllTransactions().First(n => n.Equals(d.TransactionId));
-                account.AccountId = dbacc.AccountId;
-                account.Balance = dbacc.Balance;
-                account.Created = dbacc.Created;
-                account.Frequency = dbacc.Frequency;
+    //        foreach (var d in accTr)
+    //        {
+    //            var transaction  = new AccountTransactionViewModel();
+    //            var dbacc = _transaction.GetAllTransactions().First(n => n.Equals(d.TransactionId));
+    //            transaction.AccountId = dbacc.;
+    //            transaction.Account = dbacc.;
+    //            transaction.Balance = dbacc.Created;
+    //            transaction.Frequency = dbacc.Frequency;
 
-                viewModel.Account.Add(account);
-            }
-            viewModel.SumOffCustomerAccounts = viewModel.Account.Sum(x => x.Balance);
+    //            viewModel.AccountId.Add(account);
+    //        }
+    //        //viewModel.SumOffCustomerAccounts = viewModel.Account.Sum(x => x.Balance);
 
 
-            return View(viewModel);
-        }
-            return View();
-    }
+    //        return View(viewModel);
+    //    }
+    //        return View();
+    //}
 }
 }
