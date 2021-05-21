@@ -72,12 +72,12 @@
                                             {
                                                 if (Model.sortOrder == "asc")
                                                 {
-                                                    <i class="fas fa-sort-down"></i> }
-                                                else
-                                                {
-                                                    <i class="fas fa-sort-up"></i>}
+                                <i class="fas fa-sort-down"></i> }
+                            else
+                            {
+                                <i class="fas fa-sort-up"></i>}
 
-                                            }
+                        }
 
                                         </a>
                                     </th>
@@ -93,12 +93,34 @@
                                             {
                                                 if (Model.sortOrder == "asc")
                                                 {
-                                                    <i class="fas fa-sort-down"></i> }
-                                                else
-                                                {
-                                                    <i class="fas fa-sort-up"></i>}
+                                <i class="fas fa-sort-down"></i> }
+                            else
+                            {
+                                <i class="fas fa-sort-up"></i>}
 
-                                            }
+                        }
+
+                                        </a>
+                                    </th>
+
+                                    <th scope="col">
+                                        <a asp-controller="Customer"
+                                           asp-action="Index"
+                                           asp-route-sortField="Surname"
+                                           asp-route-sortOrder="@(Model.sortField == "Surname" ? Model.OppositeSortOrder : "" )"
+                                           asp-route-page="@(Model.Page)"
+                                           asp-route-q="@Model.q">
+                                            After Name
+                                            @if (Model.sortField == "Surname")
+                                            {
+                                                if (Model.sortOrder == "asc")
+                                                {
+                                <i class="fas fa-sort-down"></i> }
+                            else
+                            {
+                                <i class="fas fa-sort-up"></i>}
+
+                        }
 
                                         </a>
                                     </th>
@@ -115,12 +137,12 @@
                                             {
                                                 if (Model.sortOrder == "asc")
                                                 {
-                                                    <i class="fas fa-sort-down"></i> }
-                                                else
-                                                {
-                                                    <i class="fas fa-sort-up"></i>}
+                                <i class="fas fa-sort-down"></i> }
+                            else
+                            {
+                                <i class="fas fa-sort-up"></i>}
 
-                                            }
+                        }
 
                                         </a>
                                     </th>
@@ -140,12 +162,12 @@
                                             {
                                                 if (Model.sortOrder == "asc")
                                                 {
-                                                    <i class="fas fa-sort-down"></i> }
-                                                else
-                                                {
-                                                    <i class="fas fa-sort-up"></i>}
+                                <i class="fas fa-sort-down"></i> }
+                            else
+                            {
+                                <i class="fas fa-sort-up"></i>}
 
-                                            }
+                        }
 
                                         </a>
                                     </th>
@@ -163,12 +185,12 @@
                                             {
                                                 if (Model.sortOrder == "asc")
                                                 {
-                                                    <i class="fas fa-sort-down"></i> }
-                                                else
-                                                {
-                                                    <i class="fas fa-sort-up"></i>}
+                                <i class="fas fa-sort-down"></i> }
+                            else
+                            {
+                                <i class="fas fa-sort-up"></i>}
 
-                                            }
+                        }
 
                                         </a>
                                     </th>
@@ -182,18 +204,19 @@
                             <tbody>
                                 @foreach (var customer in Model.Customers)
                                 {
-                            <tr>
-                                <td>@customer.CustomerId</td>
+                                <tr>
+                                    <td>@customer.CustomerId</td>
 
-                                <td>@customer.Givenname</td>
-                                <td>@customer.NationalId</td>
-                                <td>@customer.Streetaddress</td>
-                                <td>@customer.City</td>
+                                    <td>@customer.Givenname</td>
+                                    <td>@customer.Surname</td>
+                                    <td>@customer.NationalId</td>
+                                    <td>@customer.Streetaddress</td>
+                                    <td>@customer.City</td>
 
-                                
-          
-                            <td><a asp-controller="Customer" asp-action="CustomerDetails" asp-route-Id="@customer.CustomerId" class="btn btn-secondary active" role="button" aria-pressed="true">Customer Accounts</a></td>
-                            </tr>
+
+
+                                    <td><a asp-controller="Customer" asp-action="CustomerDetails" asp-route-Id="@customer.CustomerId" class="btn btn-secondary active" role="button" aria-pressed="true">Customer Accounts</a></td>
+                                </tr>
                             }
 
                             </tbody>

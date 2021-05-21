@@ -1,0 +1,15 @@
+﻿
+
+@model BankWebbApp.ViewModels.TransactionGetTransactionsFromViewModel
+
+@{ Layout = null; }
+
+
+@foreach (var item in Model.Items)
+{
+<li>@item.TransactionId - @item.AccountId - @item.Date - @item.Operation - @item.Amount - @item.Balance 
+    - @item.Bank - @item.Account</li>}
+
+
+
+ 

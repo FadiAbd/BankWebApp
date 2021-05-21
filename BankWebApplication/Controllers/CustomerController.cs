@@ -18,14 +18,17 @@ namespace BankWebbApp.Controllers
     {
         private readonly ICustomerRepository _customer;
         private readonly IAccountRepository _account;
+        private readonly ITransactionRepository _transactionRepository;
         private readonly ApplicationDbContext _dbContext;
         public double totalRowCount { get; private set; }
 
-        public CustomerController( ApplicationDbContext dbContext, ICustomerRepository customer, IAccountRepository account)
+        public CustomerController( ApplicationDbContext dbContext, ICustomerRepository customer,
+            IAccountRepository account,ITransactionRepository transactionRepository)
         {
             _dbContext = dbContext;
             _customer = customer;
             _account = account;
+            _transactionRepository = transactionRepository;
         }
         public IActionResult Index(int id,string q,string sortField, string sortOrder,int page = 1)
         {
@@ -50,13 +53,23 @@ namespace BankWebbApp.Controllers
             if (string.IsNullOrEmpty(sortOrder))
                 sortOrder = "asc";
 
-            if (sortField == "Title")
+
+            if (sortField == "Givenname")
             {
                 if (sortOrder == "asc")
                     query = query.OrderBy(y => y.Givenname);
                 else
                     query = query.OrderByDescending(y => y.Givenname);
             }
+
+            if (sortField == "Surname")
+            {
+                if (sortOrder == "asc")
+                    query = query.OrderBy(y => y.Surname);
+                else
+                    query = query.OrderByDescending(y => y.Surname);
+            }
+
             if (sortField == "NationalId")
             {
                 if (sortOrder == "asc")
@@ -72,6 +85,7 @@ namespace BankWebbApp.Controllers
                 else
                     query = query.OrderByDescending(y => y.Streetaddress);
             }
+
             if (sortField == "City")
             {
                 if (sortOrder == "asc")
@@ -79,6 +93,7 @@ namespace BankWebbApp.Controllers
                 else
                     query = query.OrderByDescending(y => y.City);
             }
+
             int pageSize = 50;
 
             var pageCount = (double)totalRowCount / pageSize;
@@ -94,6 +109,7 @@ namespace BankWebbApp.Controllers
             {
                 CustomerId = f.CustomerId,
                 Givenname = f.Givenname,
+                Surname = f.Surname,
                 NationalId = f.NationalId,
                 Streetaddress = f.Streetaddress,
                 City = f.City,
@@ -110,7 +126,8 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
-      
+      //[Authorize(Roles = "Cashier")]
+      //  [Authorize(Roles = "Admin")]
         public IActionResult CustomerDetails(int Id)
         {
             var viewModel = new CustomerDetailsViewModel();
@@ -142,13 +159,15 @@ namespace BankWebbApp.Controllers
             viewModel.Accounts = query.Select(r => new CustomerDetailsViewModel.AccountDetails
             {
                 AccountId = r.AccountId,
+                
                 Balance = r.Balance
             }).ToList();
 
             return View(viewModel);
         }
 
-
+        //[Authorize(Roles = "Cashier")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult CustomerTransactions(int id)
         {
             var viewModel = new CustomerTransactionsViewModel();
@@ -173,130 +192,124 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
 
-        public IActionResult GetTransactionsFrom(int skip)
-        {
+        //public IActionResult GetTransactionsFrom(int skip)
+        //{
 
 
-            //return Content("<li>Hej från server</li>");
-            var viewModel = new TransactionGetTransactionsFromViewModel();
-            //viewModel.Country = "Sweden";
-            //viewModel.ListGenerated = DateTime.Now;
-            viewModel.Items = _playerRepository.GetList(skip, 15).Select(r => new PlayerRowViewModel
-            {
-                JerseyNumber = r.JerseyNumber,
-                Position = r.Position,
-                Namn = r.Name
-            }).ToList();
-            return View(viewModel);
+        //    //return Content("<li>Hej från server</li>");
+        //    var viewModel = new  CustomerTransactionsViewModel/*TransactionGetTransactionsFromViewMode*/();
+            
+        //    viewModel.Transactions = _dbContext.Transactions(skip, 15)
+        //        .Select(r => new TransactionGetTransactionsFromViewModel.Item
+        //    {
+                
+        // //TransactionId = r.
+
+        // //AccountId = r.
+        // //Date =r.
+        // //Type = r.
+        // //Operation r.
+        // //Amount = r.
+        // //Balance = r.
+        // //Symbol = r.
+        // //Bank = r.
+        // //Account= r.
+
+        //    }).ToList();
+        //    return View(viewModel);
+
+
+
+            //public IActionResult _SelectCustomer(int selectedId)
+            //{
+            //    var viewModel = new SelectCustomerViewModel();
+            //    var selectedCustomer = _dbContext.Customers.First(r => r.CustomerId == selectedId );
+
+            //    viewModel.Gender = selectedCustomer.Gender;
+            //    viewModel.Givenname = selectedCustomer.Givenname;
+            //    viewModel.Surname = selectedCustomer.Surname;
+
+
+
+
+
+
+            //    return View(viewModel);
+            //}
+            //[Authorize(Roles = "Admin")]
+            //[Authorize(Roles = "Cashier")]---------------------------------------
+
+            //public IActionResult CustomerPage(int id)
+            //{
+            //    var viewModel = new CustomerPageViewModel();
+            //    if(_customer.GetAllCustomer().Include(x => x.Dispositions)
+            //        .FirstOrDefault(r => r.CustomerId == id) == null)
+            //    {
+            //        //viewModel.DoNotExist = true;
+            //        return View(viewModel);
+            //    }
+            //    var p = _customer.GetAllCustomer().Include(x => x.Dispositions)
+            //        .First(r => r.CustomerId == id);
+
+            //    viewModel.CustomerId = p.CustomerId;
+            //    viewModel.Gender = p.Gender;
+            //    viewModel.Givenname = p.Givenname;
+            //    viewModel.Surname = p.Surname;
+            //    viewModel.NationalId = p.NationalId;
+            //    viewModel.Streetaddress = p.Streetaddress;
+            //    viewModel.Birthday = p.Birthday;
+            //    viewModel.City = p.City;
+            //    viewModel.Country = p.Country;
+            //    viewModel.CountryCode = p.CountryCode;
+            //    viewModel.Emailaddress = p.Emailaddress;
+            //    viewModel.Telephonecountrycode = p.Telephonecountrycode;
+            //    viewModel.Telephonenumber = p.Telephonenumber;
+            //    viewModel.Zipcode = p.Zipcode;
+
+            //    var dispAcc = p.Dispositions.ToList();
+
+            //    foreach(var d in dispAcc)
+            //    {
+            //        var account = new CustomerAccountViewModel();
+            //        var dbacc = _account.GetAllAccount().First(n => n.AccountId.Equals(d.AccountId));
+            //        account.AccountId = dbacc.AccountId;
+            //        account.Balance = dbacc.Balance;
+            //        account.Created = dbacc.Created;
+            //        account.Frequency = dbacc.Frequency;
+
+            //        viewModel.Account.Add(account);
+            //    }
+            //    viewModel.SumOffCustomerAccounts = viewModel.Account.Sum(x => x.Balance);
+
+
+            //    return View(viewModel);
+            //}------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
         }
-
-
-
-        //public IActionResult _SelectCustomer(int selectedId)
-        //{
-        //    var viewModel = new SelectCustomerViewModel();
-        //    var selectedCustomer = _dbContext.Customers.First(r => r.CustomerId == selectedId );
-
-        //    viewModel.Gender = selectedCustomer.Gender;
-        //    viewModel.Givenname = selectedCustomer.Givenname;
-        //    viewModel.Surname = selectedCustomer.Surname;
-
-
-
-
-
-
-        //    return View(viewModel);
-        //}
-        //[Authorize(Roles = "Admin")]
-        //[Authorize(Roles = "Cashier")]---------------------------------------
-
-        //public IActionResult CustomerPage(int id)
-        //{
-        //    var viewModel = new CustomerPageViewModel();
-        //    if(_customer.GetAllCustomer().Include(x => x.Dispositions)
-        //        .FirstOrDefault(r => r.CustomerId == id) == null)
-        //    {
-        //        //viewModel.DoNotExist = true;
-        //        return View(viewModel);
-        //    }
-        //    var p = _customer.GetAllCustomer().Include(x => x.Dispositions)
-        //        .First(r => r.CustomerId == id);
-
-        //    viewModel.CustomerId = p.CustomerId;
-        //    viewModel.Gender = p.Gender;
-        //    viewModel.Givenname = p.Givenname;
-        //    viewModel.Surname = p.Surname;
-        //    viewModel.NationalId = p.NationalId;
-        //    viewModel.Streetaddress = p.Streetaddress;
-        //    viewModel.Birthday = p.Birthday;
-        //    viewModel.City = p.City;
-        //    viewModel.Country = p.Country;
-        //    viewModel.CountryCode = p.CountryCode;
-        //    viewModel.Emailaddress = p.Emailaddress;
-        //    viewModel.Telephonecountrycode = p.Telephonecountrycode;
-        //    viewModel.Telephonenumber = p.Telephonenumber;
-        //    viewModel.Zipcode = p.Zipcode;
-
-        //    var dispAcc = p.Dispositions.ToList();
-
-        //    foreach(var d in dispAcc)
-        //    {
-        //        var account = new CustomerAccountViewModel();
-        //        var dbacc = _account.GetAllAccount().First(n => n.AccountId.Equals(d.AccountId));
-        //        account.AccountId = dbacc.AccountId;
-        //        account.Balance = dbacc.Balance;
-        //        account.Created = dbacc.Created;
-        //        account.Frequency = dbacc.Frequency;
-
-        //        viewModel.Account.Add(account);
-        //    }
-        //    viewModel.SumOffCustomerAccounts = viewModel.Account.Sum(x => x.Balance);
-
-
-        //    return View(viewModel);
-        //}------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public IActionResult Search(string q)
-        //{
-        //    var viewModel = new CustomerSearchViewModel();
-
-        //    viewModel.Customers = _dbContext.Customers.Include(r => r.Supplier)
-        //        .Where(r => q == null || r.Namn.Contains(q) || r.Supplier.Name.Contains(q))
-        //        .Select(dbVacc => new VaccinViewModel
-        //        {
-        //            Id = dbVacc.Id,
-        //            Supplier = dbVacc.Supplier.Name,
-        //            Name = dbVacc.Namn
-        //        }).ToList();
-
-
-        //    return View(viewModel);
-        //}
-    }
 
 
 }

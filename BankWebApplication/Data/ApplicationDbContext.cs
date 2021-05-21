@@ -233,6 +233,8 @@ namespace BankWebbApp.Data
             OnModelCreatingPartial(modelBuilder);
         }
 
+       
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 

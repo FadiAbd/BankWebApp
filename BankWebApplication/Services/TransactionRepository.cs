@@ -1,4 +1,5 @@
 ﻿using BankWebbApp.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -12,6 +13,13 @@ namespace BankWebbApp.Repository
         public TransactionRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        private static Random rand = new Random();
+        private static List<Transaction> Transactions;
+        public List<Transaction> GetList(int skip, int antal)
+        {
+            return Transactions.Skip(skip).Take(antal).ToList();
         }
 
         public void AddTransaction(Transaction dbTransaction)
@@ -28,14 +36,7 @@ namespace BankWebbApp.Repository
         {
             return (IQueryable<Transaction>)_dbContext.Transactions;
         }
-        //public void AddTransaction(Transaction dbTransaction)
-        //{
-        //    _dbContext.Transactions.Add(dbTransaction);
-        //}
-        //public void DeleteTransaction(Transaction DeleteTransaction)
-        //{
-        //    _dbContext.Transactions.Remove(DeleteTransaction);
-        //}
+       
         public void Save()
         {
             _dbContext.SaveChanges();
