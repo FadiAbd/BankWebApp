@@ -1,0 +1,15 @@
+﻿
+
+@model BankWebbApp.ViewModels.TransactionGetFromViewModel
+
+@{ Layout = null; }
+
+
+@foreach (var transaction in Model.Transactions)
+{
+    <partial name="_TransactionRow" model="@transaction"/>
+}
+
+
+
+ 

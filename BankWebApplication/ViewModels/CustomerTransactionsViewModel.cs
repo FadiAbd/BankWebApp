@@ -10,6 +10,7 @@ namespace BankWebbApp.ViewModels
     {
 
         public List<Transaction> Transactions { get; set; }
+
         public class Transaction
         {
             public int TransactionId { get; set; }
@@ -22,5 +23,7 @@ namespace BankWebbApp.ViewModels
             public string Bank { get; set; }
             public string Account { get; set; }
         }
+
     }
+   
 }

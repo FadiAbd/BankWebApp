@@ -11,45 +11,44 @@
                 <div class="card-header">
                     <h3 class="h6 text-uppercase mb-0">Customer Page</h3>
                 </div>
-
-                <div class="card-body">
-                    @*<table class="table table-hover">*@
-                    @*<thead>
+                
+                <div class="card text-white bg-dark mb-3">
+                    <div class="class-body">
+                        @*<table class="table table-hover">*@
+                        @*<thead>
             <tr>*@
-                    <h4>Customer Number :  @Model.CustomerId</h4>
-                </div>
-                <div class="card-body">
-                    <p>First Name : @Model.Givenname</p>
-                    <p>Last Name : @Model.Surename</p>
-                    <p>Address : @Model.StreetAdress</p>
-                    <p>City : @Model.City</p>
-                    <p>Country : @Model.Country</p>
-                </div>
+                        <h4>Customer Number :  @Model.CustomerId</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>First Name : @Model.Givenname</p>
+                        <p>Last Name : @Model.Surename</p>
+                        <p>Address : @Model.StreetAdress</p>
+                        <p>City : @Model.City</p>
+                        <p>Country : @Model.Country</p>
+                    </div>
+                    </div>
+                    <div class="card-header">
+                        <h4>Customer Accounts</h4>
+                    </div>
 
-                <div class="card-header">
-                    <h4>Customer Accounts</h4>
-                </div>
-
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <a>Accounts Number</a>
-                                </th>
-                                <th>
-                                    <a>Balance</a>
-                                </th>
-                            </tr>
-                            @foreach (var r in Model.Accounts)
-                            {
-                        <tr style="cursor:pointer" onclick="location.href = '@(Url.Action("CustomerTransactions", "Customer", new { Id = r.AccountId }))'">
-                            <td>@r.AccountId</td>
-                            <td>@r.Balance</td>
-                            </tr>
-
-                            }
-                      </thead>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Accounts Number</a>
+                                    </th>
+                                    <th>
+                                        <a>Balance</a>
+                                    </th>
+                                </tr>
+                                @foreach (var r in Model.Accounts)
+                                {
+                    <tr style="cursor:pointer" onclick="location.href = '@(Url.Action("CustomerTransactions", "Customer", new { Id = r.AccountId }))'">
+                        <td>@r.AccountId</td>
+                        <td>@r.Balance</td>
+                    </tr>}
+                            </thead>
 
                         </table>
 

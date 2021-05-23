@@ -1,4 +1,5 @@
 ﻿using BankWebbApp.Data;
+using BankWebbApp.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -12,15 +13,15 @@ namespace BankWebbApp.Controllers
     {
         protected readonly ApplicationDbContext _dbContext;
 
-        public BaseController(ApplicationDbContext dbContext)
+        public BaseController(ApplicationDbContext dbContext,ICustomerRepository customer)
         {
             _dbContext = dbContext;
 
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {

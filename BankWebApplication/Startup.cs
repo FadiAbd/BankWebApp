@@ -1,7 +1,7 @@
 using BankWebbApp.Data;
 using BankWebbApp.Models;
 using BankWebbApp.Repository;
-
+using BankWebbApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,6 +41,7 @@ namespace BankWebbApp
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
         }
 

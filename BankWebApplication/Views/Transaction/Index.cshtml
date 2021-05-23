@@ -1,1 +1,35 @@
-﻿
+﻿@model BankWebbApp.ViewModels.CustomerTransactionsViewModel
+
+@{ 
+
+}
+<div class="card-body">
+    <table class="table table-hover" id="transaction">
+        <thead>
+            @foreach (var transaction in Model.Transactions)
+            {
+                <partial name=" _TransactionRow" model="@transaction"/>
+            }
+        </thead>
+    </table>
+    
+</div>
+
+<a class=" btn btn-primary" href="#" onclick="fetch20more" ; return false;>Get next 20 </a>
+
+@section Scripts
+{
+    <script>
+function fetch20more(){
+    skip = skip + 15;
+
+    $.ajax({
+        url: "/transaction/GetTransactionsFrom?skip=" + skip, success: function (result) {
+            $("#Transactions").append(result);
+        }
+    });
+
+}
+
+    </script>
+}

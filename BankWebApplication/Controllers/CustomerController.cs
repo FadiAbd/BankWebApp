@@ -192,31 +192,7 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
 
-        //public IActionResult GetTransactionsFrom(int skip)
-        //{
-
-
-        //    //return Content("<li>Hej från server</li>");
-        //    var viewModel = new  CustomerTransactionsViewModel/*TransactionGetTransactionsFromViewMode*/();
-            
-        //    viewModel.Transactions = _dbContext.Transactions(skip, 15)
-        //        .Select(r => new TransactionGetTransactionsFromViewModel.Item
-        //    {
-                
-        // //TransactionId = r.
-
-        // //AccountId = r.
-        // //Date =r.
-        // //Type = r.
-        // //Operation r.
-        // //Amount = r.
-        // //Balance = r.
-        // //Symbol = r.
-        // //Bank = r.
-        // //Account= r.
-
-        //    }).ToList();
-        //    return View(viewModel);
+       
 
 
 
@@ -308,7 +284,7 @@ namespace BankWebbApp.Controllers
 
 
 
-           
+
         }
 
 

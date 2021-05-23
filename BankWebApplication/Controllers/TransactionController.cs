@@ -2,6 +2,7 @@
 using BankWebbApp.Repository;
 using BankWebbApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,34 +12,70 @@ namespace BankWebbApp.Controllers
 {
     public class TransactionController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
+        //private readonly ApplicationDbContext _dbContext;
         private readonly ITransactionRepository _transactionRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public TransactionController(ApplicationDbContext dbContext,ITransactionRepository transactionRepository)
+
+        public TransactionController(IAccountRepository accountRepository, ITransactionRepository transactionRepository)
         {
-            _dbContext = dbContext;
+            //_dbContext = dbContext;
             _transactionRepository = transactionRepository;
+            _accountRepository = accountRepository;
 
 
         }
 
 
-    //    public IActionResult Index(string q)
-    //    {
-    //        var viewModel = new TransactionIndexViewModel();
-    //        viewModel.Transactions = _dbContext.Transactions
-    //            .Where(r => q == null || r.Account.Contains(q) || r.Bank.Contains(q))
-    //            .Select(transaction => new CustomerTransactionViewModel.Transactions
-    //            {
-    //                AccountId = transaction.AccountId,
-    //                Date = transaction.Date,
-    //                Amount = transaction.Amount,
-    //                Balance = transaction.Balance,
-    //                Bank = transaction.Bank
+        //public IActionResult Index()
+        //{
+        //    var viewModel = new CustomerTransactionsViewModel();
+        //    viewModel.Transactions = _transactionRepository.GetList(0, 20)/*.OrderByDescending(r => r.Date)*/
 
-    //            }).ToList();
 
-    //        return View(viewModel);
-    //    }
+        //        .Select(r => new CustomerTransactionsViewModel.Transaction
+        //        {
+
+
+        //            AccountId = r.AccountId,
+        //    //        Date = r.Date,
+        //    //        Type = r.Type,
+        //    //        Operation r.Operation,
+        //    //        Amount = r.Amount,
+        //            Balance = r.Balance
+
+        //            //        Bank = r.Bank,
+        //            //        Account = r.Account
+
+        //        }).ToList();
+
+        //    return View(viewModel);
+        //}
+        public IActionResult GetTransactionsFrom(int skip)
+        {
+
+
+
+            //var viewModel = new TransactionGetFromViewModel();
+
+            //viewModel.Transactions = _transaction.GetList(skip, 20).OrderByDescending(r => r.Date)
+            //    .Select(r => new TransactionsRowViewModel
+            //    {
+
+            //        TransactionId = r.,
+
+            //        AccountId = r.AccountId,
+            //        Date = r.Date,
+            //        Type = r.Type,
+            //        Operation r.Operation,
+            //        Amount = r.Amount,
+            //        Balance = r.Balance,
+
+            //        Bank = r.Bank,
+            //        Account = r.Account
+
+            //    }).ToList();
+            return View();
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace BankWebbApp.Data
         public DbSet<Loan> Loans { get; set; }
         public DbSet<PermenentOrder> PermenentOrder { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

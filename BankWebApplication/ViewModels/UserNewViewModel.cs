@@ -14,9 +14,12 @@ namespace BankWebbApp.ViewModels
         [MaxLength(30, ErrorMessage = "You reached Max Digits!")]
         [MinLength(2, ErrorMessage = "Please write longer name!")]
         public string LoginName { get; set; }
+
         [Required]
         
-        public byte[] PasswordHash { get; set; }
+        
+        public byte[] PasswordHash { get; set; } 
+
         [Required(ErrorMessage = "Please write a name!")]
         [MaxLength(30, ErrorMessage = "You reached Max Digits!")]
         [MinLength(2, ErrorMessage = "Please write longer name!")]
