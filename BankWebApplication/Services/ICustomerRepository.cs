@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BankWebbApp.Repository
 {
-    public interface ICustomerRepository
+     public interface ICustomerRepository
     {
         IQueryable<Customer> GetAllCustomer();
         public void AddCustomer(Customer dbCustomer);

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BankWebbApp.Repository
 {
-    public interface IAccountRepository
+     public interface IAccountRepository
     {
       
         IQueryable<Account> GetAllAccount();

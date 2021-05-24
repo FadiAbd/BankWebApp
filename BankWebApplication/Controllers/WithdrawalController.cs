@@ -1,5 +1,6 @@
 ﻿
 using BankWebbApp.Repository;
+using BankWebbApp.Services;
 using BankWebbApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,12 +27,14 @@ namespace BankWebbApp.Controllers
             _transactionRepository = transactionRepository;
 
         }
-        public IActionResult Index() 
+
+        public IActionResult Index()
         {
             return View();
         }
+       
         [HttpGet]
-        public IActionResult Withdrawal()
+        public IActionResult NewWithdrawal()
         {
             var viewModel = new WithdrawalViewModel();
 

@@ -1,9 +1,12 @@
 ﻿using BankWebbApp.Repository;
+using BankWebbApp.Services;
+using BankWebbApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static BankWebbApp.ViewModels.CustomerTransactionsViewModel;
 
 namespace BankWebbApp.Controllers
 {
@@ -14,14 +17,12 @@ namespace BankWebbApp.Controllers
 
 
 
-
-        public TransferController(IAccountRepository accountRepository, ITransactionRepository transactionRepository)
+        public TransferController( IAccountRepository accountRepository, ITransactionRepository transactionRepository)
         {
-
             _accountRepository = accountRepository;
             _transactionRepository = transactionRepository;
-
         }
+       
 
 
 
@@ -39,7 +40,7 @@ namespace BankWebbApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult NewWithdrawal(TransferViewModel viewModel)
+        public ActionResult NewTransfer(TransferViewModel viewModel)
         {
             if (_accountRepository.GetAllAccount().First(r => r.AccountId == viewModel.AccountId).Balance < viewModel.Amount)
                 ModelState.AddModelError("Amount", "Not enough money!");
@@ -50,16 +51,20 @@ namespace BankWebbApp.Controllers
                 _transactionRepository.AddTransaction(trans);
                 trans.AccountId = viewModel.AccountId;
                 trans.Date = DateTime.Now;
-                trans.Type = "Debit";
-                trans.Operation = "Withdrawal in cash";
-                trans.Amount = decimal.Negate(viewModel.Amount);
+                trans.Type = "Credit";
+                trans.Operation = "Credit in cash";
+                trans.Amount = viewModel.Amount;
 
 
                 var dbAcc = _accountRepository.GetAllAccount().First(r => r.AccountId == viewModel.AccountId);
-                var balance = dbAcc.Balance - viewModel.Amount;
+                dbAcc.Balance = dbAcc.Balance - viewModel.Amount;
 
+                var dbReciever = _accountRepository.GetAllAccount().First(r => r.AccountId == viewModel.AccountIdReciever);
+                dbReciever.Balance = dbReciever.Balance + viewModel.Amount;
+
+                trans.Balance = dbAcc.Balance;
                 _transactionRepository.Save();
-                return RedirectToAction("NewWithdrawal");
+                return RedirectToAction("NewTransfer");
 
             }
             return View(viewModel);

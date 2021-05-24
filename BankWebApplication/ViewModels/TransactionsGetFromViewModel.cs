@@ -1,19 +1,12 @@
 ﻿using BankWebbApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Transactions;
 
 namespace BankWebbApp.ViewModels
 {
-    public class TransactionIndexViewModel
+    public class TransactionsGetFromViewModel
     {
-
-       
-        
-            public string q { get; set; }
-
-        public List<Transaction> Transactions { get; set; }
         public int TransactionId { get; set; }
 
         public int AccountId { get; set; }
@@ -26,17 +19,8 @@ namespace BankWebbApp.ViewModels
         public string Bank { get; set; }
         public string Account { get; set; }
 
-        public virtual Account AccountNavigation { get; set; }
-
-    
         
-       
 
-       
     }
-   
-   
-
 
 }
-  

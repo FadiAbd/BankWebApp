@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BankWebbApp.Services
 {
-    interface IUserRepository
+     public interface IUserRepository
     {
         IQueryable<User> GetAllUsers();
         List<User> GetList(int skip, int antal);

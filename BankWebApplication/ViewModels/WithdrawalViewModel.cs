@@ -12,7 +12,7 @@ namespace BankWebbApp.ViewModels
     {
         public int TransactionId { get; set; }
 
-        [Range(1, int.MinValue, ErrorMessage = "choose the withdrawal targeting Account")]
+        //[Range(1, int.MinValue, ErrorMessage = "choose the withdrawal targeting Account")]
         public int AccountId { get; set; }
 
         [Required]
@@ -21,7 +21,7 @@ namespace BankWebbApp.ViewModels
         public DateTime Date { get; set; }
         public string Type { get; set; }
         public string Operation { get; set; }
-        [Required]
+        //[Required]
         public decimal Balance { get; set; }
         public string Symbol { get; set; }
         public string Bank { get; set; }

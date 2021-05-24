@@ -30,7 +30,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" >
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -42,7 +42,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="Home">
+                <a class="nav-link" >
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -56,17 +56,24 @@
                 <div id="sidebar" class="sidebar py-3">
                     <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family"></div>
                     <ul class="sidebar-menu list-unstyled">
-                       
-                        <li class="sidebar-list-item"><a asp-controller="Home" asp-action="Index" class="sidebar-link text-white"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li><br />
-                        <li class="sidebar-list-item"><a asp-controller="Customer" asp-action="Index" class="sidebar-link text-white"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Customers</span></a></li><br />
-                        <li class="sidebar-list-item"><a asp-controller="Account" asp-action="Index" class="sidebar-link text-white"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Accounts</span></a></li><br />
-                        <li class="sidebar-list-item"><a asp-controller="Transaction" asp-action="Index" class="sidebar-link text-white"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Transactions</span></a></li><br />
+
+                        <li class="sidebar-list-item"><a asp-controller="Home" asp-action="Index" class="sidebar-link text-white"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
+                        <br />
+                        <li class="sidebar-list-item"><a asp-controller="Customer" asp-action="Index" class="sidebar-link text-white"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Customers</span></a></li>
+                        <br />
+                        <li class="sidebar-list-item"><a asp-controller="Account" asp-action="Index" class="sidebar-link text-white"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Accounts</span></a></li>
+                        <br />
+                        <li class="sidebar-list-item"><a asp-controller="Transaction" asp-action="Index" class="sidebar-link text-white"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Transactions</span></a></li>
+                        <br />
+                        <li class="sidebar-list-item"><a asp-controller="Withdrawal" asp-action="NewWithdrawal" class="sidebar-link text-white"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Withdraw</span></a></li>
+                        <br />
                         <div class="sidebar-heading"> </div>
                         <li class="sidebar-list-item">
                             <a asp-area="Identity" asp-page="/Account/Login" class="sidebar-link text-white">
                                 <i class="o-exit-1 mr-3 text-gray"></i><span>Login</span>
                             </a>
-                        </li><br />
+                        </li>
+                        <br />
                         <li class="sidebar-list-item">
                             <a asp-area="Identity" asp-page="/Account/Register" class="sidebar-link text-white">
                                 <i class="o-exit-1 mr-3 text-gray"></i><span>Register</span>
@@ -365,12 +372,12 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
                                 <img class="img-profile rounded-circle"
                                      src="~/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            @*<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"> Profile</i>
@@ -389,7 +396,7 @@
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Logout</i>
 
                                 </a>
-                            </div>
+                            </div>*@
                         </li>
 
                     </ul>
@@ -422,7 +429,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    @*<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -439,7 +446,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
     <!-- Bootstrap core JavaScript-->
     <script src="~/vendor/jquery/jquery.min.js"></script>

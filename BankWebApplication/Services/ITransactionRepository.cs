@@ -1,25 +1,18 @@
 ﻿using BankWebbApp.Data;
-using BankWebbApp.ViewModels;
-using Microsoft.EntityFrameworkCore;
+using BankWebbApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
 
-namespace BankWebbApp.Repository
+namespace BankWebbApp.Services
 {
     public interface ITransactionRepository
     {
-        //List<Transaction> GetAllTransaction(int skip, int antal);
+        IQueryable<Transaction> GetAllTransactions();
         List<Transaction> GetList(int skip, int antal);
-        public void AddTransaction(Transaction dbTransaction);
-        void AddTransaction(CustomerTransactionsViewModel.Transaction trans);
-        //public void DeleteTransaction(Transaction DeleteTransaction);
+        public void AddTransaction(Transaction transaction);
         public void Save();
-
-
-
     }
 
     public class TransactionRepository : ITransactionRepository
@@ -31,46 +24,24 @@ namespace BankWebbApp.Repository
             _dbContext = dbContext;
         }
 
-        private static Random rand = new Random();
-        private static List<Transaction> Transactions;
-
-        //public IQueryable<Transaction> GetAllTransactions()
-        //{
-        //    return (IQueryable<Transaction>)_dbContext.Transactions;
-        //}
-        
-        
-
-
-            public List<Transaction> GetList(int skip, int antal)
-            {
-                return Transactions.Skip(skip).Take(antal).ToList();
-            }
-
-        public void AddTransaction(Transaction dbTransaction)
+        public IQueryable<Transaction> GetAllTransactions()
         {
-            throw new System.NotImplementedException();
+            return _dbContext.Transactions;
         }
-
-        //public void DeleteTransaction(Transaction DeleteTransaction)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        //public IQueryable<Transaction> GetAllTransaction()
-        //{
-        //    return (IQueryable<Transaction>)_dbContext.Transactions;
-        //}
-
+        public List<Transaction> GetList(int skip, int antal)
+        {
+            return _dbContext.Transactions.Skip(skip).Take(antal).ToList();
+        }
+        public void AddTransaction(Transaction transaction)
+        {
+            _dbContext.Transactions.Add(transaction);
+        }
         public void Save()
         {
             _dbContext.SaveChanges();
         }
 
-        public void AddTransaction(CustomerTransactionsViewModel.Transaction trans)
-        {
-            throw new NotImplementedException();
-        }
+
+
     }
-    
 }
