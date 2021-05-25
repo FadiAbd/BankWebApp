@@ -41,7 +41,7 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
             var viewModel = new UserEditViewModel();
@@ -61,7 +61,7 @@ namespace BankWebbApp.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult New()
         {
             var viewModel = new UserNewViewModel();

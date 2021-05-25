@@ -1,13 +1,11 @@
-﻿
-
-@model BankWebbApp.ViewModels.TransactionsGetFromViewModel
+﻿@model BankWebbApp.ViewModels.TransactionsGetFromViewModel
 
 @{ Layout = null; }
 
 
-@*@foreach (var transaction in Model.Transactions)
+@foreach (var transaction in Model.Transactions)
 {
-    <partial name="_TransactionRow" model="@transaction"/>*@
+    <partial name="_TransactionRow" model="@transaction"/>
 }
 
 

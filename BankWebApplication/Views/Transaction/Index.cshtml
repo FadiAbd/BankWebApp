@@ -1,7 +1,7 @@
 ﻿@model BankWebbApp.ViewModels.CustomerTransactionsViewModel
 
 @{ 
-
+    ViewData["Title"] = "Index";
 }
 <div class="card-body">
     <table class="table table-hover" id="transaction">
@@ -15,13 +15,15 @@
     
 </div>
 
-<a class=" btn btn-primary" href="#" onclick="fetch20more" ; return false;>Get next 20 </a>
+<a class=" btn btn-primary" href="#" onclick="fetch20more" ; return false;>Get next 20 transactions </a>
 
 @section Scripts
 {
     <script>
+        var skip = 0;
+        console.log("here")
 function fetch20more(){
-    skip = skip + 15;
+    skip = skip + 20;
 
     $.ajax({
         url: "/transaction/GetTransactionsFrom?skip=" + skip, success: function (result) {

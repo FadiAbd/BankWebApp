@@ -19,6 +19,12 @@ namespace BankWebbApp.ViewModels
         public string Symbol { get; set; }
         public string Bank { get; set; }
         public string Account { get; set; }
-        //public List<Transaction> Transactions { get; set; } /*= new List<Transaction>();*/
     }
+        public class TransactionsGetFromViewModel
+        {
+            public List<TransactionsRowViewModel> Transactions { get; set; }
+
+        }
+
+    
 }

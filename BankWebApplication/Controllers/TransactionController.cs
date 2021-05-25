@@ -2,12 +2,14 @@
 using BankWebbApp.Repository;
 using BankWebbApp.Services;
 using BankWebbApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static BankWebbApp.ViewModels.TransactionsRowViewModel;
 
 namespace BankWebbApp.Controllers
 {
@@ -27,7 +29,7 @@ namespace BankWebbApp.Controllers
 
         }
 
-
+        [Authorize(Roles = "Cashier")]
         public IActionResult Index()
         {
             var viewModel = new CustomerTransactionsViewModel();
@@ -39,42 +41,42 @@ namespace BankWebbApp.Controllers
 
 
                     AccountId = r.AccountId,
-                    //        Date = r.Date,
-                    //        Type = r.Type,
-                    //        Operation r.Operation,
-                    //        Amount = r.Amount,
-                    Balance = r.Balance
-
-                    //        Bank = r.Bank,
-                    //        Account = r.Account
+                    Date = r.Date,
+                    Type = r.Type,
+                    Operation = r.Operation,
+                    Amount = r.Amount,
+                    Balance = r.Balance,
+                    Bank = r.Bank,
+                    Account = r.Account
 
                 }).ToList();
 
             return View(viewModel);
         }
-        //public IActionResult GetTransactionsFrom(int skip)
-        //{
-        //    var viewModel = new TransactionsGetFromViewModel();
+        [Authorize(Roles = "Cashier")]
+        public IActionResult GetTransactionsFrom(int skip)
+        {
+            var viewModel = new TransactionsGetFromViewModel();
 
-        //    viewModel.Transactions = _transactionRepository.GetList(skip, 20).OrderByDescending(r => r.Date)
-        //        .Select(r => new 
-        //        {
+            viewModel.Transactions = _transactionRepository.GetList(skip, 20).OrderByDescending(r => r.Date)
+                .Select(r => new TransactionsRowViewModel
+                {
 
-        //            TransactionId = r.AccountId,
+                    TransactionId = r.AccountId,
 
-        //            AccountId = r.AccountId,
-        //            Date = r.Date,
-        //            Type = r.Type,
-        //            Operation = r.Operation,
-        //            Amount = r.Amount,
-        //            Balance = r.Balance,
+                    AccountId = r.AccountId,
+                    Date = r.Date,
+                    Type = r.Type,
+                    Operation = r.Operation,
+                    Amount = r.Amount,
+                    Balance = r.Balance,
 
-        //            Bank = r.Bank,
-        //            Account = r.Account
+                    Bank = r.Bank,
+                    Account = r.Account
 
-        //        }).ToList();
+                }).ToList();
 
-        //    return View(viewModel);
-        //}
+            return View(viewModel);
+        }
     }
 }

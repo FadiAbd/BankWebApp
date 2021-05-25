@@ -31,6 +31,7 @@ namespace BankWebbApp.Controllers
             _account = account;
             _transactionRepository = transactionRepository;
         }
+       // [Authorize(Roles = "Cashier")]
         public IActionResult Index(int id,string q,string sortField, string sortOrder,int page = 1)
         {
             var viewModel = new CustomerIndexViewModel();
@@ -128,7 +129,7 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
       //[Authorize(Roles = "Cashier")]
-      //  [Authorize(Roles = "Admin")]
+   
         public IActionResult CustomerDetails(int Id)
         {
             var viewModel = new CustomerDetailsViewModel();
@@ -168,7 +169,7 @@ namespace BankWebbApp.Controllers
         }
 
         //[Authorize(Roles = "Cashier")]
-        //[Authorize(Roles = "Admin")]
+        
         public IActionResult CustomerTransactions(int id)
         {
             var viewModel = new CustomerTransactionsViewModel();

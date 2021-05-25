@@ -3,6 +3,7 @@ using BankWebbApp.Models;
 using BankWebbApp.Repository;
 using BankWebbApp.Services;
 using BankWebbApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace BankWebbApp.Controllers
         {
             return View();
         }
-       
+        [Authorize(Roles = "Cashier")]
         [HttpGet]
         public IActionResult NewWithdrawal()
         {
