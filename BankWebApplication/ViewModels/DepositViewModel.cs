@@ -11,11 +11,11 @@ namespace BankWebbApp.ViewModels
     {
         public int TransactionId { get; set; }
 
-        [Range(1, int.MinValue, ErrorMessage = "choose the Deposit targeting Account")]
+        //[Range(1, int.MinValue, ErrorMessage = "choose the Deposit targeting Account")]
         public int AccountId { get; set; }
 
         [Required]
-        [Remote("overrun", "Deposit", AdditionalFields = "AccountId")]
+        //[Remote("overrun", "Deposit", AdditionalFields = "AccountId")]
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
         public string Type { get; set; }

@@ -14,8 +14,8 @@ namespace BankWebbApp.ViewModels
         
         public int AccountId { get; set; }
 
-        [Required]
-        [Remote("overrun", "Transfer", AdditionalFields = "AccountId")]
+        //[Required]
+        //[Remote("overrun", "Transfer", AdditionalFields = "AccountId")]
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
         public string Type { get; set; }

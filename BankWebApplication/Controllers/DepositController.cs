@@ -1,4 +1,5 @@
-﻿using BankWebbApp.Repository;
+﻿using BankWebbApp.Models;
+using BankWebbApp.Repository;
 using BankWebbApp.Services;
 using BankWebbApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static BankWebbApp.ViewModels.CustomerTransactionsViewModel;
+//using static BankWebbApp.ViewModels.CustomerTransactionsViewModel;
 
 namespace BankWebbApp.Controllers
 {
@@ -38,29 +39,29 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
 
-        public ActionResult New(DepositViewModel viewModel)
+        public ActionResult NewDeposit(DepositViewModel viewModel)
         {
             
 
             if (ModelState.IsValid)
             {
-                var dbTrans = new Transaction();
-                _transactionRepository.AddTransaction(dbTrans);
-                dbTrans.AccountId = viewModel.AccountId;
-                dbTrans.Date = DateTime.Now;
-                dbTrans.Type = "Credit";
-                dbTrans.Operation = "Credit in cash";
-                dbTrans.Amount = viewModel.Amount;
+                var trans = new Transaction();
+                _transactionRepository.AddTransaction(trans);
+                trans.AccountId = viewModel.AccountId;
+                trans.Date = DateTime.Now;
+                trans.Type = "Credit";
+                trans.Operation = "Credit in cash";
+                trans.Amount = viewModel.Amount;
 
 
                 var dbAcc = _accountRepository.GetAllAccount().First(r => r.AccountId == viewModel.AccountId);
                 var balance = dbAcc.Balance - viewModel.Amount;
 
-                dbTrans.Balance = balance;
+                trans.Balance = balance;
                 dbAcc.Balance = balance;
 
                 _transactionRepository.Save();
-                return RedirectToAction("New");
+                return RedirectToAction("NewDeposit");
 
             }
             return View(viewModel);

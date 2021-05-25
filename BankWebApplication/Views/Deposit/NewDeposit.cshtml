@@ -1,0 +1,50 @@
+﻿@model BankWebbApp.ViewModels.DepositViewModel
+
+
+@{
+    ViewData["Title"] = " NewDeposit";
+}
+
+
+<section class="py-5">
+    <div class="row">
+        <div class="col-lg-12 mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h6 text-uppercase mb-0 ">Deposit</h3>
+                </div>
+
+                <div class=" card-body">
+                    <form asp-controller="Deposit" asp-action="NewDeposit" method="post">
+                        <div class="form-group">
+                            <label asp-for="AccountId">Enter Account Number to put money in </label>
+                            <input class="form-control" asp-for="AccountId" />
+                            <span asp-validation-for="AccountId" class="field-validation-error"></span>
+                            <span asp-validation-for="AccountId"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Balance"></label>
+                            <input class="form-control" asp-for="Balance" />
+                            <span asp-validation-for="Balance" class="field-validation-error"></span>
+                            <span asp-validation-for="Balance"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label asp-for="Amount">Enter Amount  : </label>
+                                <input class="form-control" asp-for="Amount" />
+                                <span asp-validation-for="Amount" class="field-validation-error"></span>
+
+                            </div>
+                            <button type="submit" class=" btn btn-primary">Send</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>

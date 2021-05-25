@@ -1,4 +1,5 @@
 ﻿
+using BankWebbApp.Models;
 using BankWebbApp.Repository;
 using BankWebbApp.Services;
 using BankWebbApp.ViewModels;
@@ -7,7 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static BankWebbApp.ViewModels.CustomerTransactionsViewModel;
+
+//using static BankWebbApp.ViewModels.CustomerTransactionsViewModel;
 
 namespace BankWebbApp.Controllers
 {
@@ -66,6 +68,6 @@ namespace BankWebbApp.Controllers
             }
             return View(viewModel);
         }
-
+       
     }
 }
