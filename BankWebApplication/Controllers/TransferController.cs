@@ -40,7 +40,7 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
-        [Authorize(Roles = "Cashier")]
+        //[Authorize(Roles = "Cashier")]
         [HttpPost]
         public ActionResult NewTransfer(TransferViewModel viewModel)
         {

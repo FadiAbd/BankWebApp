@@ -29,7 +29,7 @@ namespace BankWebbApp.Controllers
 
         }
 
-        [Authorize(Roles = "Cashier")]
+        //[Authorize(Roles = "Cashier")]
         public IActionResult Index()
         {
             var viewModel = new CustomerTransactionsViewModel();
@@ -53,7 +53,7 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
-        [Authorize(Roles = "Cashier")]
+        //[Authorize(Roles = "Cashier")]
         public IActionResult GetTransactionsFrom(int skip)
         {
             var viewModel = new TransactionsGetFromViewModel();

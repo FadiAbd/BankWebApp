@@ -32,10 +32,10 @@ namespace BankWebbApp.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Cashier")]
+        //[Authorize(Roles = "Cashier")]
         [HttpGet]
        
-        public IActionResult New()
+        public IActionResult NewDeposit()
         {
             var viewModel = new DepositViewModel();
 

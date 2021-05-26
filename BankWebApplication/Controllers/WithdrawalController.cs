@@ -35,7 +35,7 @@ namespace BankWebbApp.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Cashier")]
+        //[Authorize(Roles = "Cashier")]
         [HttpGet]
         public IActionResult NewWithdrawal()
         {
@@ -43,6 +43,8 @@ namespace BankWebbApp.Controllers
 
             return View();
         }
+
+        //[Authorize(Roles = "Cashier")]
         [HttpPost]
         public ActionResult NewWithdrawal(WithdrawalViewModel viewModel)
         {
