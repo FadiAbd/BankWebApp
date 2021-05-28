@@ -17,19 +17,25 @@ namespace BankWebbApp.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly ICustomerRepository _customer;
-        private readonly IAccountRepository _account;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IAccountRepository _accountRepository;
         private readonly ITransactionRepository _transactionRepository;
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IDispositionRepository _dispositionRepository;
+
+
+
+        //private readonly ApplicationDbContext _dbContext;
         public double totalRowCount { get; private set; }
 
-        public CustomerController( ApplicationDbContext dbContext, ICustomerRepository customer,
-            IAccountRepository account,ITransactionRepository transactionRepository)
+        public CustomerController( /*ApplicationDbContext dbContext,*/ ICustomerRepository customerRepository,
+            IAccountRepository accountRepository,ITransactionRepository transactionRepository,
+            IDispositionRepository dispositionRepository)
         {
-            _dbContext = dbContext;
-            _customer = customer;
-            _account = account;
+            //_dbContext = dbContext;
+            _customerRepository = customerRepository;
+            _accountRepository = accountRepository;
             _transactionRepository = transactionRepository;
+            _dispositionRepository = dispositionRepository;
         }
        // [Authorize(Roles = "Cashier")]
         public IActionResult Index(int id,string q,string sortField, string sortOrder,int page = 1)
@@ -37,11 +43,11 @@ namespace BankWebbApp.Controllers
             var viewModel = new CustomerIndexViewModel();
 
 
-            _dbContext.Customers
-            .Include(a => a.Dispositions)
-            .ThenInclude(a => a.Account)
-            .FirstOrDefault(a => a.CustomerId == id);
-            var query = _dbContext.Customers
+            //_customerRepository.Customers
+            //.Include(a => a.Dispositions)
+            //.ThenInclude(a => a.Account)
+            //.FirstOrDefault(a => a.CustomerId == id);
+            var query = _customerRepository.GetAllCustomers()
 
                .Where(r => q == null || r.Givenname.Contains(q) || r.City.Contains(q) || r.Streetaddress.Contains(q)
                  || r.NationalId.Contains(q));
@@ -49,12 +55,19 @@ namespace BankWebbApp.Controllers
                 int totalCount = query.Count();
 
             if (string.IsNullOrEmpty(sortField))
-                sortField = "Givenname";
+                sortField = "CustomerId";
 
 
             if (string.IsNullOrEmpty(sortOrder))
                 sortOrder = "asc";
 
+            if (sortField == "CustomerId")
+            {
+                if (sortOrder == "asc")
+                    query = query.OrderBy(y => y.CustomerId);
+                else
+                    query = query.OrderByDescending(y => y.CustomerId);
+            }
 
             if (sortField == "Givenname")
             {
@@ -96,6 +109,14 @@ namespace BankWebbApp.Controllers
                     query = query.OrderByDescending(y => y.City);
             }
 
+            if (sortField == "Country")
+            {
+                if (sortOrder == "asc")
+                    query = query.OrderBy(y => y.Country);
+                else
+                    query = query.OrderByDescending(y => y.Country);
+            }
+
             int pageSize = 50;
 
             var pageCount = (double)totalRowCount / pageSize;
@@ -110,15 +131,17 @@ namespace BankWebbApp.Controllers
             .Select(f => new CustomerIndexViewModel.CustomerViewModel
             {
                 CustomerId = f.CustomerId,
+                NationalId = f.NationalId,
                 Givenname = f.Givenname,
                 Surname = f.Surname,
-                NationalId = f.NationalId,
+                
                 Streetaddress = f.Streetaddress,
                 City = f.City,
-                
-                
-                
-                 }).ToList();
+                Country = f.Country,
+
+
+
+            }).ToList();
             viewModel.q = q;
             viewModel.sortOrder = sortOrder;
             viewModel.sortField = sortField;
@@ -133,9 +156,9 @@ namespace BankWebbApp.Controllers
         public IActionResult CustomerDetails(int Id)
         {
             var viewModel = new CustomerDetailsViewModel();
-            var query = (from c in _dbContext.Customers
-                         join d in _dbContext.Dispositions on c.CustomerId equals d.CustomerId
-                         join a in _dbContext.Accounts on d.AccountId equals a.AccountId
+            var query = (from c in _customerRepository.GetAllCustomers()
+                         join d in _dispositionRepository.GetAllDispositions() on c.CustomerId equals d.CustomerId
+                         join a in _accountRepository.GetAllAccount() on d.AccountId equals a.AccountId
                          where c.CustomerId == Id
                          select new
                          {
@@ -169,15 +192,16 @@ namespace BankWebbApp.Controllers
         }
 
         //[Authorize(Roles = "Cashier")]
+
         
         public IActionResult CustomerTransactions(int id)
         {
             var viewModel = new CustomerTransactionsViewModel();
 
-            var dbTransaction = _dbContext.Transactions.Where(r => r.AccountId == id);
+            var dbTransaction = _transactionRepository.GetAllTransactions().Where(r => r.AccountId == id);
 
 
-            viewModel.Transactions = dbTransaction.Select(t => new CustomerTransactionsViewModel.Transaction
+            viewModel.Transactions = dbTransaction.Select(t => new TransactionsRowViewModel 
             {
                 TransactionId = t.TransactionId,
                 AccountId = t.AccountId,
@@ -194,100 +218,33 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
 
-       
-
-
-
-            //public IActionResult _SelectCustomer(int selectedId)
-            //{
-            //    var viewModel = new SelectCustomerViewModel();
-            //    var selectedCustomer = _dbContext.Customers.First(r => r.CustomerId == selectedId );
-
-            //    viewModel.Gender = selectedCustomer.Gender;
-            //    viewModel.Givenname = selectedCustomer.Givenname;
-            //    viewModel.Surname = selectedCustomer.Surname;
-
-
-
-
-
-
-            //    return View(viewModel);
-            //}
-            //[Authorize(Roles = "Admin")]
-            //[Authorize(Roles = "Cashier")]---------------------------------------
-
-            //public IActionResult CustomerPage(int id)
-            //{
-            //    var viewModel = new CustomerPageViewModel();
-            //    if(_customer.GetAllCustomer().Include(x => x.Dispositions)
-            //        .FirstOrDefault(r => r.CustomerId == id) == null)
-            //    {
-            //        //viewModel.DoNotExist = true;
-            //        return View(viewModel);
-            //    }
-            //    var p = _customer.GetAllCustomer().Include(x => x.Dispositions)
-            //        .First(r => r.CustomerId == id);
-
-            //    viewModel.CustomerId = p.CustomerId;
-            //    viewModel.Gender = p.Gender;
-            //    viewModel.Givenname = p.Givenname;
-            //    viewModel.Surname = p.Surname;
-            //    viewModel.NationalId = p.NationalId;
-            //    viewModel.Streetaddress = p.Streetaddress;
-            //    viewModel.Birthday = p.Birthday;
-            //    viewModel.City = p.City;
-            //    viewModel.Country = p.Country;
-            //    viewModel.CountryCode = p.CountryCode;
-            //    viewModel.Emailaddress = p.Emailaddress;
-            //    viewModel.Telephonecountrycode = p.Telephonecountrycode;
-            //    viewModel.Telephonenumber = p.Telephonenumber;
-            //    viewModel.Zipcode = p.Zipcode;
-
-            //    var dispAcc = p.Dispositions.ToList();
-
-            //    foreach(var d in dispAcc)
-            //    {
-            //        var account = new CustomerAccountViewModel();
-            //        var dbacc = _account.GetAllAccount().First(n => n.AccountId.Equals(d.AccountId));
-            //        account.AccountId = dbacc.AccountId;
-            //        account.Balance = dbacc.Balance;
-            //        account.Created = dbacc.Created;
-            //        account.Frequency = dbacc.Frequency;
-
-            //        viewModel.Account.Add(account);
-            //    }
-            //    viewModel.SumOffCustomerAccounts = viewModel.Account.Sum(x => x.Balance);
-
-
-            //    return View(viewModel);
-            //}------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Cashier")]
+        public IActionResult New()
+        {
+            var viewModel = new CustomerNewViewModel();
+            return View(viewModel);
         }
+
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Cashier")]
+         public IActionResult Edit()
+        {
+            var viewModel = new CustomerEditViewModel();
+            return View(viewModel);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Cashier")]
+         public IActionResult Delete()
+        {
+            var viewModel = new CustomerDeleteViewModel();
+            return View(viewModel);
+        }
+
+
+
+    }
 
 
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -20,11 +19,6 @@ namespace BankWebbApp.ViewModels
         public string Bank { get; set; }
         public string Account { get; set; }
     }
-        public class TransactionsGetFromViewModel
-        {
-            public List<TransactionsRowViewModel> Transactions { get; set; }
-
-        }
 
     
 }

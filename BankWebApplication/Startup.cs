@@ -42,7 +42,7 @@ namespace BankWebbApp
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
-
+            services.AddTransient<IDispositionRepository, DispositionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

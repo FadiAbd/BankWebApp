@@ -9,7 +9,7 @@ namespace BankWebbApp.Repository
 {
      public interface ICustomerRepository
     {
-        IQueryable<Customer> GetAllCustomer();
+        IQueryable<Customer> GetAllCustomers();
         public void AddCustomer(Customer dbCustomer);
         public void DeleteCustomer(Customer DeleteCustomer);
         public void Save();
@@ -26,7 +26,7 @@ namespace BankWebbApp.Repository
             _dbContext = dbContext;
         }
 
-        public IQueryable<Customer> GetAllCustomer()
+        public IQueryable<Customer> GetAllCustomers()
         {
             return _dbContext.Customers;
         }

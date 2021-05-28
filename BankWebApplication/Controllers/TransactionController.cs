@@ -29,14 +29,14 @@ namespace BankWebbApp.Controllers
 
         }
 
-        //[Authorize(Roles = "Cashier")]
+       
         public IActionResult Index()
         {
             var viewModel = new CustomerTransactionsViewModel();
             viewModel.Transactions = _transactionRepository.GetList(0, 20).OrderByDescending(r => r.Date)
 
 
-                .Select(r => new CustomerTransactionsViewModel.Transaction
+                .Select(r => new TransactionsRowViewModel
                 {
 
 
@@ -53,10 +53,10 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
-        //[Authorize(Roles = "Cashier")]
+        
         public IActionResult GetTransactionsFrom(int skip)
         {
-            var viewModel = new TransactionsGetFromViewModel();
+            var viewModel = new TransactionsGetTransactionsFromViewModel();
 
             viewModel.Transactions = _transactionRepository.GetList(skip, 20).OrderByDescending(r => r.Date)
                 .Select(r => new TransactionsRowViewModel

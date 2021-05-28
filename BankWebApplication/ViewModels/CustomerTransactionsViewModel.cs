@@ -9,7 +9,7 @@ namespace BankWebbApp.ViewModels
     public class CustomerTransactionsViewModel
     {
 
-        public List<Transaction> Transactions { get; set; }
+        public List<TransactionsRowViewModel> Transactions { get; set; }
 
         public class Transaction
         {

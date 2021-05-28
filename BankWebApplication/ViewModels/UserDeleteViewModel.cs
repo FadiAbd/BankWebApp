@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankWebbApp.ViewModels
 {
-    public class UserNewViewModel
+    public class UserDeleteViewModel
     {
         public int UserId { get; set; }
         [Required]

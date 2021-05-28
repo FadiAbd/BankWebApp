@@ -25,7 +25,7 @@ namespace BankWebbApp.Controllers
             _userManager = userManager;
            
         }
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Index(string q)
         {
             var viewModel = new UserIndexViewModel();
@@ -43,53 +43,30 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult Edit(int id)
-        {
-            var viewModel = new UserEditViewModel();
-            var dbUser = _dbContext.Users.First(r => r.UserId == id );
-
-            viewModel.UserId = dbUser.UserId;
-            viewModel.LoginName = dbUser.LoginName;
-            viewModel.PasswordHash = dbUser.PasswordHash;
-            viewModel.FirstName = dbUser.FirstName;
-            viewModel.LastName = dbUser.LastName;
-
-            return View(viewModel);
-        }
-
-
-
-
-
-
-        [Authorize(Roles = "Admin")]
+        
         public IActionResult New()
         {
             var viewModel = new UserNewViewModel();
-
             return View(viewModel);
         }
-        [HttpPost]
+
         [Authorize(Roles = "Admin")]
-        public IActionResult New(UserNewViewModel viewModel)
+       
+        public IActionResult Edit()
         {
-            if (ModelState.IsValid)
-            {
-                var dbUser = new User();
-               // _dbContext.Users.Add(dbUser);
-                dbUser.UserId = viewModel.UserId;
-                dbUser.FirstName = viewModel.FirstName;
-                dbUser.LastName = viewModel.LastName;
-                dbUser.LoginName = viewModel.LoginName;
-                dbUser.PasswordHash = viewModel.PasswordHash;
-                _dbContext.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
-           
-
+            var viewModel = new UserEditViewModel();
             return View(viewModel);
         }
+
+        [Authorize(Roles = "Admin")]
+        
+        public IActionResult Delete()
+        {
+            var viewModel = new UserDeleteViewModel();
+            return View(viewModel);
+        }
+
+
 
 
 
