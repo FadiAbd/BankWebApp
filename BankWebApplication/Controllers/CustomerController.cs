@@ -24,33 +24,30 @@ namespace BankWebbApp.Controllers
 
 
 
-        //private readonly ApplicationDbContext _dbContext;
+       
         public double totalRowCount { get; private set; }
 
-        public CustomerController( /*ApplicationDbContext dbContext,*/ ICustomerRepository customerRepository,
+        public CustomerController(  ICustomerRepository customerRepository,
             IAccountRepository accountRepository,ITransactionRepository transactionRepository,
             IDispositionRepository dispositionRepository)
         {
-            //_dbContext = dbContext;
+            
             _customerRepository = customerRepository;
             _accountRepository = accountRepository;
             _transactionRepository = transactionRepository;
             _dispositionRepository = dispositionRepository;
         }
-       // [Authorize(Roles = "Cashier")]
+       
         public IActionResult Index(int id,string q,string sortField, string sortOrder,int page = 1)
         {
             var viewModel = new CustomerIndexViewModel();
 
 
-            //_customerRepository.Customers
-            //.Include(a => a.Dispositions)
-            //.ThenInclude(a => a.Account)
-            //.FirstOrDefault(a => a.CustomerId == id);
+
             var query = _customerRepository.GetAllCustomers()
 
-               .Where(r => q == null || r.Givenname.Contains(q) || r.City.Contains(q) || r.Streetaddress.Contains(q)
-                 || r.NationalId.Contains(q));
+               .Where(r => q == null || r.Givenname.Contains(q) || r.City.Contains(q));
+                 
             
                 int totalCount = query.Count();
 
@@ -151,7 +148,7 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
-      //[Authorize(Roles = "Cashier")]
+      
    
         public IActionResult CustomerDetails(int Id)
         {
@@ -191,7 +188,7 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
 
-        //[Authorize(Roles = "Cashier")]
+        
 
         
         public IActionResult CustomerTransactions(int id)

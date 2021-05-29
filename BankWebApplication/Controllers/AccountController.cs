@@ -3,6 +3,7 @@ using BankWebbApp.Models;
 using BankWebbApp.Repository;
 using BankWebbApp.Services;
 using BankWebbApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,23 +15,31 @@ namespace BankWebbApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountRepository _account;
-        private readonly ITransactionRepository _transaction;
+        
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly ITransactionRepository _transactionRepository;
+        private readonly IDispositionRepository _dispositionRepository;
 
-        private readonly ApplicationDbContext _dbContext;
-     
 
-        public AccountController( ApplicationDbContext dbContext, IAccountRepository account,ITransactionRepository transaction)
+
+
+        public double totalRowCount { get; private set; }
+
+        public AccountController(ICustomerRepository customerRepository,
+            IAccountRepository accountRepository, ITransactionRepository transactionRepository,
+            IDispositionRepository dispositionRepository)
         {
-            _dbContext = dbContext;
-            _account = account;
-            _transaction = transaction;
-            
+
+            _customerRepository = customerRepository;
+            _accountRepository = accountRepository;
+            _transactionRepository = transactionRepository;
+            _dispositionRepository = dispositionRepository;
         }
         public IActionResult Index(string q)
         {
             var viewModel = new AccountIndexViewModel();
-            viewModel.Accounts = _dbContext.Accounts
+            viewModel.Accounts = _accountRepository.GetAllAccount()
 
                .Select(dbAcc => new AccountViewModel
                {
@@ -44,43 +53,30 @@ namespace BankWebbApp.Controllers
                
             return View(viewModel);
         }
-    //    public IActionResult AccountPage(int id)
-    //    {
-    //        var viewModel = new AccountPageViewModel();
-    //        if (_account.GetAllAccounts().Include(x => x.Transactions)
-    //            .FirstOrDefault(r => r.CustomerId == id) == null)
-    //        {
-    //            viewModel.DoNotExist = true;
-    //            return View(viewModel);
-    //        }
-    //        var p = _account.GetAllAccounts().Include(x => x.Transactions)
-    //            .First(r => r.AccountId == id);
 
-    //        viewModel.AccountId = p.AccountId;
-    //        viewModel.Balance = p.Balance;
-    //        //viewModel. = p.;
-    //        //viewModel. = p.;
-           
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Cashier")]
+        public IActionResult New()
+        {
+            var viewModel = new AccountNewViewModel();
+            return View(viewModel);
+        }
 
-    //        var accTr = p.Transactions.ToList();
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Cashier")]
+        public IActionResult Edit()
+        {
+            var viewModel = new AccountEditViewModel();
+            return View(viewModel);
+        }
 
-    //        foreach (var d in accTr)
-    //        {
-    //            var transaction  = new AccountTransactionViewModel();
-    //            var dbacc = _transaction.GetAllTransactions().First(n => n.Equals(d.TransactionId));
-    //            transaction.AccountId = dbacc.;
-    //            transaction.Account = dbacc.;
-    //            transaction.Balance = dbacc.Created;
-    //            transaction.Frequency = dbacc.Frequency;
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Cashier")]
+         public IActionResult Delete()
+        {
+            var viewModel = new AccountDeleteViewModel();
+            return View(viewModel);
+        }
 
-    //            viewModel.AccountId.Add(account);
-    //        }
-    //        //viewModel.SumOffCustomerAccounts = viewModel.Account.Sum(x => x.Balance);
-
-
-    //        return View(viewModel);
-    //    }
-    //        return View();
-    //}
-}
+    }
 }

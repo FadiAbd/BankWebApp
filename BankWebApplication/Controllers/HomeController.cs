@@ -1,7 +1,9 @@
 ﻿using BankWebbApp.Data;
 using BankWebbApp.Models;
-
+using BankWebbApp.Repository;
+using BankWebbApp.Services;
 using BankWebbApp.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,24 +17,34 @@ namespace BankWebbApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _dbContext;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IAccountRepository _accountRepository;
+        //private readonly SignInManager<IdendityUser> _signInManager;
+        
+
+
+
+
        
 
-        public HomeController(ILogger<HomeController> logger,ApplicationDbContext dbContext)
+        public HomeController(ILogger<HomeController> logger,ICustomerRepository customerRepository, IAccountRepository accountRepository
+           /*,SignInManager<IdendityUser>signInManager*/)
         {
             _logger = logger;
-            _dbContext = dbContext;
-            
+            _customerRepository = customerRepository;
+            _accountRepository = accountRepository;
+            //_signInManager = signInManager;
+           
         }
 
         [ResponseCache(Duration = 30, Location = ResponseCacheLocation.Any) ]
         public IActionResult Index()
         {
             var viewModel = new HomeIndexViewModel();
-
-            viewModel.AllCustomers = _dbContext.Customers.Count();
-            viewModel.AllAccounts = _dbContext.Accounts.Count();
-            viewModel.TotalBalanceAllAccounts = (int)_dbContext.Accounts.Sum(r => r.Balance);
+            viewModel.Customers = _customerRepository.GetAllCustomers().Count();
+            viewModel.Accounts = _accountRepository.GetAllAccount().Count();
+            viewModel.Amount = _accountRepository.GetAllAccount().Sum(r => r.Balance);
+           
             return View(viewModel);
         }
 

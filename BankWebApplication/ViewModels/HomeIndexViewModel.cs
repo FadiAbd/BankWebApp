@@ -7,9 +7,11 @@ namespace BankWebbApp.ViewModels
 {
     public class HomeIndexViewModel
     {
-        public int AllCustomers  { get; set; }
-        public int AllAccounts { get; set; }
-        public int TotalBalanceAllAccounts { get; set; }
+
+        public int Customers { get; set; }
+        public int Accounts { get; set; }
+        public decimal Amount { get; set; }
+       
 
         public List<HomeIndexViewModel> Balance = new List<HomeIndexViewModel>();
     }

@@ -32,8 +32,9 @@ namespace BankWebbApp.Controllers
         {
             return View();
         }
-        //[Authorize(Roles = "Cashier")]
-        [HttpGet]
+
+
+        //[Authorize(Roles = "Admin , Cashier")]
        
         public IActionResult NewDeposit()
         {
@@ -41,11 +42,22 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
-        [Authorize(Roles = "Cashier")]
+        //[Authorize(Roles = "Admin , Cashier")]
+        
         [HttpPost]
         public ActionResult NewDeposit(DepositViewModel viewModel)
         {
-            
+            var account = _accountRepository.GetAllAccount().FirstOrDefault(r => r.AccountId == viewModel.AccountId);
+
+            if (account == null)
+            {
+                ModelState.AddModelError("AccountId", "This account is not valid!");
+            }
+            if (viewModel.Amount <= 0)
+            {
+                ModelState.AddModelError("Amount", "The amount got to be positive!");
+            }
+
 
             if (ModelState.IsValid)
             {
