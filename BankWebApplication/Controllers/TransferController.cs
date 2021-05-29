@@ -40,12 +40,21 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
+
+
         //[Authorize(Roles = "Cashier")]
         [HttpPost]
         public ActionResult NewTransfer(TransferViewModel viewModel)
         {
             if (_accountRepository.GetAllAccount().First(r => r.AccountId == viewModel.AccountId).Balance < viewModel.Amount)
                 ModelState.AddModelError("Amount", "Not enough money!");
+
+            else if (viewModel.Account == null)
+            {
+                ModelState.AddModelError("AccountId", "This account is not valid!");
+            }
+          
+          
 
             if (ModelState.IsValid)
             {

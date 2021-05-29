@@ -41,15 +41,14 @@
                                     </th>
                                 </tr>
                                 @foreach (var r in Model.Accounts)
-                                {
-                            
-                    <tr style="cursor:pointer" onclick="location.href = '@(Url.Action("CustomerTransactions", "Customer", new { Id = r.AccountId }))'">
-                        <td>@r.AccountId</td>
-                        <td>@r.Balance</td>
-                    </tr>}
-                            </thead>
+                                {@*<tr  style="cursor:pointer" onclick="location.href = '@(Url.Action("CustomerTransactions", "Customer", new { Id = r.AccountId }))'">*@
+                                            <td>@r.AccountId</td>
+                                            <td>@r.Balance</td> @*</tr>*@
+                                <td><a class="btn btn-facebook active" role="button" aria-pressed="true" asp-controller="Transaction" asp-action="Index" asp-route-id="@r.AccountId">Show all transactions</a></td>
+                                }
+                                </thead>
 
-                        </table>
+                            </table>
 
                     </div>
 
