@@ -13,11 +13,13 @@ namespace BankWebbApp.Data
         public static void SeedData(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager)
         {
             dbContext.Database.Migrate();
+            SeedRoles(dbContext);
+            SeedUsers(userManager);
+
             SeedCustomers(dbContext);
             SeedAccounts(dbContext);
-            SeedUsers(userManager, dbContext);
             SeedTransactions(dbContext);
-            SeedRoles(dbContext);
+            
 
         }
 
@@ -51,7 +53,7 @@ namespace BankWebbApp.Data
                 dbContext.Accounts.Add(new Account { AccountId = 0 });
         }
 
-        private static void SeedUsers(UserManager<IdentityUser> userManager,ApplicationDbContext dbContext)
+        private static void SeedUsers(UserManager<IdentityUser> userManager)
         {
             AddUserIfNotExists(userManager, "stefan.holmberg@systementor.se", "Hejsan123#", new string[] { "Admin" });
             AddUserIfNotExists(userManager, "stefan.holmberg@nackademin.se", "Hejsan123#", new string[] { "Cashier" });

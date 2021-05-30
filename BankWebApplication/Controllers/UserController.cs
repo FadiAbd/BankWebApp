@@ -59,7 +59,7 @@ namespace BankWebbApp.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        
+
         public IActionResult Delete()
         {
             var viewModel = new UserDeleteViewModel();

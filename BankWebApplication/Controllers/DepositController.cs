@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//using static BankWebbApp.ViewModels.CustomerTransactionsViewModel;
+
 
 namespace BankWebbApp.Controllers
 {
@@ -34,7 +34,7 @@ namespace BankWebbApp.Controllers
         }
 
 
-        //[Authorize(Roles = "Admin , Cashier")]
+        [Authorize(Roles = "Admin , Cashier")]
        
         public IActionResult NewDeposit()
         {
@@ -42,7 +42,7 @@ namespace BankWebbApp.Controllers
 
             return View(viewModel);
         }
-        //[Authorize(Roles = "Admin , Cashier")]
+        [Authorize(Roles = "Admin , Cashier")]
         
         [HttpPost]
         public ActionResult NewDeposit(DepositViewModel viewModel)

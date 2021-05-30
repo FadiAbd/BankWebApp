@@ -32,7 +32,8 @@ namespace BankWebbApp.Controllers
         {
             return View();
         }
-
+        //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Cashier")]
         [HttpGet]
         public IActionResult NewTransfer()
         {
@@ -42,6 +43,7 @@ namespace BankWebbApp.Controllers
         }
 
 
+        //[Authorize(Roles = "Admin")]
         //[Authorize(Roles = "Cashier")]
         [HttpPost]
         public ActionResult NewTransfer(TransferViewModel viewModel)
