@@ -54,25 +54,23 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Cashier")]
+        [Authorize(Roles = "Admin , Cashier")]
+        
         public IActionResult New()
         {
             var viewModel = new AccountNewViewModel();
             return View(viewModel);
         }
 
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Cashier")]
+        [Authorize(Roles = "Admin , Cashier")]
         public IActionResult Edit()
         {
             var viewModel = new AccountEditViewModel();
             return View(viewModel);
         }
 
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Cashier")]
-         public IActionResult Delete()
+        [Authorize(Roles = "Admin , Cashier")]
+        public IActionResult Delete()
         {
             var viewModel = new AccountDeleteViewModel();
             return View(viewModel);

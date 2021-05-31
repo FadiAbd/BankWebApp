@@ -35,7 +35,7 @@ namespace BankWebbApp.Controllers
         {
             return View();
         }
-        //[Authorize(Roles = "Admin , Cashier")]
+        [Authorize(Roles = "Admin , Cashier")]
        
         public IActionResult NewWithdrawal()
         {
@@ -44,17 +44,14 @@ namespace BankWebbApp.Controllers
             return View();
         }
 
-        //[Authorize(Roles = "Admin,Cashier")]
+        [Authorize(Roles = "Admin,Cashier")]
         [HttpPost]
         public ActionResult NewWithdrawal(WithdrawalViewModel viewModel)
         {
             if (_accountRepository.GetAllAccount().First(r => r.AccountId == viewModel.AccountId).Balance < viewModel.Amount)
                 ModelState.AddModelError("Amount", "Not enough money!");
 
-            //if (viewModel.Account == null)
-            //{
-            //    ModelState.AddModelError("AccountId", "Account not found!");
-            //}
+           
             else if (viewModel.Amount <= 0)
             {
                 ModelState.AddModelError("Amount", "The amount got to be positive!");

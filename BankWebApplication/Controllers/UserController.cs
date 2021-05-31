@@ -25,7 +25,7 @@ namespace BankWebbApp.Controllers
             _userManager = userManager;
            
         }
-        //[Authorize(Roles = "Admin")]
+        
         public IActionResult Index(string q)
         {
             var viewModel = new UserIndexViewModel();

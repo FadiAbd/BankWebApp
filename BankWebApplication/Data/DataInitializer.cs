@@ -53,7 +53,7 @@ namespace BankWebbApp.Data
                 dbContext.Accounts.Add(new Account { AccountId = 0 });
         }
 
-        private static void SeedUsers(UserManager<IdentityUser> userManager)
+        private static void SeedUsers(UserManager<IdentityUser>userManager)
         {
             AddUserIfNotExists(userManager, "stefan.holmberg@systementor.se", "Hejsan123#", new string[] { "Admin" });
             AddUserIfNotExists(userManager, "stefan.holmberg@nackademin.se", "Hejsan123#", new string[] { "Cashier" });

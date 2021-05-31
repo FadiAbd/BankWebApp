@@ -215,25 +215,22 @@ namespace BankWebbApp.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Cashier")]
+        [Authorize(Roles = "Admin , Cashier")]
         public IActionResult New()
         {
             var viewModel = new CustomerNewViewModel();
             return View(viewModel);
         }
 
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Cashier")]
-         public IActionResult Edit()
+        [Authorize(Roles = "Admin , Cashier")]
+        public IActionResult Edit()
         {
             var viewModel = new CustomerEditViewModel();
             return View(viewModel);
         }
 
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Cashier")]
-         public IActionResult Delete()
+        [Authorize(Roles = "Admin , Cashier")]
+        public IActionResult Delete()
         {
             var viewModel = new CustomerDeleteViewModel();
             return View(viewModel);
