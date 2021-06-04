@@ -51,7 +51,7 @@ namespace BankWebbApp.Controllers
 
             if (account == null)
             {
-                ModelState.AddModelError("AccountId", "This account is not valid!");
+                ModelState.AddModelError("AccountId", "Account not found!");
             }
             if (viewModel.Amount <= 0)
             {

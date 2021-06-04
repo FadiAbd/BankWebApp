@@ -1,58 +1,105 @@
-﻿@model BankWebbApp.ViewModels.TransferViewModel
-
+﻿@model BankWebbApp.ViewModels.NewTransferViewModel
 
 @{
-    ViewData["Title"] = " NewTransfer";
+    ViewData["Title"] = "Transfer";
 }
-
 
 <section class="py-5">
     <div class="row">
         <div class="col-lg-12 mb-5">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="h6 text-uppercase mb-0 ">Transfer</h3>
+                    <h3 class="h6 text-uppercase mb-0">Transfer</h3>
                 </div>
 
-                <div class=" card-body">
-                    <form asp-controller="Transfer" asp-action="NewTransfer" method="post">
+                <div class="card-body">
+                    @using (Html.BeginForm("NewTransfer", "Transfer", FormMethod.Post))
+                    {
                         <div class="form-group">
-                            <label asp-for="AccountId"> Sender Account Number</label>
-                            <input class="form-control" asp-for="AccountId" />
+                            <label asp-for="AccountId">Skicka från konto: </label>
+                            <input class="form-control" asp-for="AccountId">
                             <span asp-validation-for="AccountId" class="field-validation-error"></span>
-                            <span asp-validation-for="AccountId"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AccountReceiversId">Send To Account: </label>
+                            <input class="form-control" asp-for="AccountReceiversId">
+                            <span asp-validation-for="AccountReceiversId" class="field-validation-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Amount">Enter Amount: </label>
+                            <input class="form-control" asp-for="Amount">
+                            <span asp-validation-for="Amount" class="field-validation-error"></span>
                         </div>
 
-                        <div class="form-group">
-                            <label asp-for="AccountIdReciever">Reciever Account Number</label>
-                            <input class="form-control" asp-for="AccountIdReciever" />
-                            <span asp-validation-for="AccountIdReciever" class="field-validation-error"></span>
-                            <span asp-validation-for="AccountIdReciever"></span>
-                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    }
+                </div>
 
-                        <div class="form-group">
-                            <label asp-for="Date">Transfer Date</label>
-                            <input class="form-control" asp-for="Date" />
-                            <span asp-validation-for="Date" class="field-validation-error"></span>
-                            <span asp-validation-for="Date"></span>
-                        </div>
+            </div>
 
-                        <div class="form-group">
+        </div>
+    </div>
+</section>
+
+
+
+
+
+@*@model BankWebbApp.ViewModels.TransferViewModel
+
+
+    @{
+        ViewData["Title"] = " NewTransfer";
+    }
+
+
+    <section class="py-5">
+        <div class="row">
+            <div class="col-lg-12 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h6 text-uppercase mb-0 ">Transfer</h3>
+                    </div>
+
+                    <div class=" card-body">
+                        <form asp-controller="Transfer" asp-action="NewTransfer" method="post">
                             <div class="form-group">
-                                <label asp-for="Amount">Enter Amount to transfer : </label>
-                                <input class="form-control" asp-for="Amount" />
-                                <span asp-validation-for="Amount" class="field-validation-error"></span>
+                                <label asp-for="AccountId"> Sender Account Number</label>
+                                <input class="form-control" asp-for="AccountId" />
+                                <span asp-validation-for="AccountId" class="field-validation-error"></span>
+                                <span asp-validation-for="AccountId"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="AccountIdReciever">Reciever Account Number</label>
+                                <input class="form-control" asp-for="AccountIdReciever" />
+                                <span asp-validation-for="AccountIdReciever" class="field-validation-error"></span>
+                                <span asp-validation-for="AccountIdReciever"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Date">Transfer Date</label>
+                                <input class="form-control" asp-for="Date" />
+                                <span asp-validation-for="Date" class="field-validation-error"></span>
+                                <span asp-validation-for="Date"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label asp-for="Amount">Enter Amount to transfer : </label>
+                                    <input class="form-control" asp-for="Amount" />
+                                    <span asp-validation-for="Amount" class="field-validation-error"></span>
+
+                                </div>
+                                <button type="submit" class=" btn btn-primary">Complete Transfer</button>
 
                             </div>
-                            <button type="submit" class=" btn btn-primary">Complete Transfer</button>
-
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
-
-</section>
+    </section>*@
 

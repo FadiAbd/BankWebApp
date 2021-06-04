@@ -16,25 +16,21 @@ namespace BankWebbApp.Controllers
     public class AccountController : Controller
     {
         
-        private readonly ICustomerRepository _customerRepository;
+       
         private readonly IAccountRepository _accountRepository;
-        private readonly ITransactionRepository _transactionRepository;
-        private readonly IDispositionRepository _dispositionRepository;
+       
 
 
 
 
         public double totalRowCount { get; private set; }
 
-        public AccountController(ICustomerRepository customerRepository,
-            IAccountRepository accountRepository, ITransactionRepository transactionRepository,
-            IDispositionRepository dispositionRepository)
+        public AccountController(IAccountRepository accountRepository)
         {
 
-            _customerRepository = customerRepository;
+           
             _accountRepository = accountRepository;
-            _transactionRepository = transactionRepository;
-            _dispositionRepository = dispositionRepository;
+          
         }
         public IActionResult Index(string q)
         {
