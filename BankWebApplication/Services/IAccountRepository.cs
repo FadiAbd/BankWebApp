@@ -14,7 +14,7 @@ namespace BankWebbApp.Repository
       
         IQueryable<Account> GetAllAccount();
         public void AddAccount(Account dbAccount);
-        public void DeleteCustomer(Account DeleteAccount);
+        public void DeleteAccount(Account DeleteAccount);
         public void Save();
 
 
