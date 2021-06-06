@@ -16,9 +16,9 @@ namespace BankWebbApp.Data
             SeedRoles(dbContext);
             SeedUsers(userManager);
 
-            SeedCustomers(dbContext);
-            SeedAccounts(dbContext);
-            SeedTransactions(dbContext);
+            //SeedCustomers(dbContext);
+            //SeedAccounts(dbContext);
+            //SeedTransactions(dbContext);
             
 
         }
@@ -39,19 +39,19 @@ namespace BankWebbApp.Data
             dbContext.SaveChanges();
         }
 
-        private static void SeedTransactions(ApplicationDbContext dbContext)
-        {
-            var transaction = dbContext.Transactions.FirstOrDefault(r => r.TransactionId == 0);
-            if (transaction == null)
-                dbContext.Transactions.Add(new Transaction { TransactionId = 0 });
-        }
+        //private static void SeedTransactions(ApplicationDbContext dbContext)
+        //{
+        //    var transaction = dbContext.Transactions.FirstOrDefault(r => r.TransactionId == 0);
+        //    if (transaction == null)
+        //        dbContext.Transactions.Add(new Transaction { TransactionId = 0 });
+        //}
 
-        private static void SeedAccounts( ApplicationDbContext dbContext)
-        {
-            var account = dbContext.Accounts.FirstOrDefault(r => r.AccountId == 0 );
-            if (account == null)
-                dbContext.Accounts.Add(new Account { AccountId = 0 });
-        }
+        //private static void SeedAccounts( ApplicationDbContext dbContext)
+        //{
+        //    var account = dbContext.Accounts.FirstOrDefault(r => r.AccountId == 0 );
+        //    if (account == null)
+        //        dbContext.Accounts.Add(new Account { AccountId = 0 });
+        //}
 
         private static void SeedUsers(UserManager<IdentityUser>userManager)
         {
@@ -76,12 +76,12 @@ namespace BankWebbApp.Data
                 var r = userManager.AddToRolesAsync(user, roles).Result;
             }
 
-            private static void SeedCustomers(ApplicationDbContext dbContext)
-        {
-            var customer = dbContext.Customers.FirstOrDefault(r => r.CustomerId == 0);
-            if (customer == null)
-                dbContext.Customers.Add(new Customer { CustomerId = 0 });
-        }
+        //    private static void SeedCustomers(ApplicationDbContext dbContext)
+        //{
+        //    var customer = dbContext.Customers.FirstOrDefault(r => r.CustomerId == 0);
+        //    if (customer == null)
+        //        dbContext.Customers.Add(new Customer { CustomerId = 0 });
+        //}
 
        
 
