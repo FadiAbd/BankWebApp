@@ -15,11 +15,9 @@ namespace BankWebbApp.Controllers
 {
     public class TransactionController : Controller
     {
-        //private readonly ApplicationDbContext _dbContext;
+        
         private readonly ITransactionRepository _transactionRepository;
         private readonly IAccountRepository _accountRepository;
-
-
         public TransactionController(IAccountRepository accountRepository, ITransactionRepository transactionRepository)
         {
           

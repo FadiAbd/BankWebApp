@@ -21,16 +21,16 @@ namespace BankWebbApp
             using (var scope = host.Services.CreateScope())
             {
                 var serviceProvider = scope.ServiceProvider;
-                //try
-                //{
+                
+                
                     var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
                     var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
                     DataInitializer.SeedData(dbContext, userManager);
-                //}
-                //catch (Exception ex)
-                //{
-                //    Debug.WriteLine(ex.Message);
-                //}
+                
+                
+               
+                
+                
             }
 
             host.Run();

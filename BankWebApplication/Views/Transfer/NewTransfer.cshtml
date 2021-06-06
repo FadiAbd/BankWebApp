@@ -16,12 +16,12 @@
                     @using (Html.BeginForm("NewTransfer", "Transfer", FormMethod.Post))
                     {
                         <div class="form-group">
-                            <label asp-for="AccountId">Skicka från konto: </label>
+                            <label asp-for="AccountId">Send from Account: </label>
                             <input class="form-control" asp-for="AccountId">
                             <span asp-validation-for="AccountId" class="field-validation-error"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="AccountReceiversId">Send To Account: </label>
+                            <label asp-for="AccountReceiversId">Receiver Account: </label>
                             <input class="form-control" asp-for="AccountReceiversId">
                             <span asp-validation-for="AccountReceiversId" class="field-validation-error"></span>
                         </div>

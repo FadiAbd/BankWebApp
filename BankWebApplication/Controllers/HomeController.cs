@@ -19,21 +19,13 @@ namespace BankWebbApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ICustomerRepository _customerRepository;
         private readonly IAccountRepository _accountRepository;
-        //private readonly SignInManager<IdendityUser> _signInManager;
         
-
-
-
-
-       
-
-        public HomeController(ILogger<HomeController> logger,ICustomerRepository customerRepository, IAccountRepository accountRepository
-           /*,SignInManager<IdendityUser>signInManager*/)
+        public HomeController(ILogger<HomeController> logger,ICustomerRepository customerRepository, IAccountRepository accountRepository)
         {
             _logger = logger;
             _customerRepository = customerRepository;
             _accountRepository = accountRepository;
-            //_signInManager = signInManager;
+            
            
         }
 

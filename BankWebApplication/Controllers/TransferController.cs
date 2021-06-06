@@ -25,10 +25,6 @@ namespace BankWebbApp.Controllers
             _accountRepository = accountRepository;
             _transactionRepository = transactionRepository;
         }
-       
-
-
-
         public IActionResult Index()
         {
             return View();
@@ -46,7 +42,7 @@ namespace BankWebbApp.Controllers
 
 
         [Authorize(Roles = "Admin , Cashier")]
-        [HttpPost]//---------------------------------------------------------------
+        [HttpPost]
 
         public IActionResult NewTransfer(NewTransferViewModel newTransfer)
         {
