@@ -27,10 +27,6 @@ namespace BankWebbApp
                     var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
                     DataInitializer.SeedData(dbContext, userManager);
                 
-                
-               
-                
-                
             }
 
             host.Run();
