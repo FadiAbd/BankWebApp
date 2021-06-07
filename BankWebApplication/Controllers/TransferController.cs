@@ -104,7 +104,7 @@ namespace BankWebbApp.Controllers
             var db = _accountRepository.GetAllAccount().First(r => r.AccountId == id);
             if (db == null)
             {
-                throw new InvalidDataException("aswraasdf");
+                throw new InvalidDataException("jhbfjb,mb");
             }
             return View(viewModel);
         }

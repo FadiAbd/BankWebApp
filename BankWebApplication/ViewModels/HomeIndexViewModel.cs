@@ -13,6 +13,6 @@ namespace BankWebbApp.ViewModels
         public decimal Amount { get; set; }
        
 
-        public List<HomeIndexViewModel> Balance = new List<HomeIndexViewModel>();
+        
     }
 }
