@@ -39,9 +39,7 @@ namespace BankWebbApp
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddDbContext<BankAppDataContext>(options =>
-                            options.UseSqlServer(
-                                Configuration.GetConnectionString("DefaultConnection1")));
+
 
             services.AddControllersWithViews();
             services.AddTransient<ICustomerRepository, CustomerRepository>();

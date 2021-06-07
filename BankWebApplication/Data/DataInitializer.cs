@@ -15,6 +15,7 @@ namespace BankWebbApp.Data
             dbContext.Database.Migrate();
             SeedRoles(dbContext);
             SeedUsers(userManager);
+            
 
         }
 
@@ -58,11 +59,12 @@ namespace BankWebbApp.Data
                 var result = userManager.CreateAsync(user, password).Result;
                 var r = userManager.AddToRolesAsync(user, roles).Result;
             }
-
        
 
-       
 
-      
+
+
+
+
     }
 }
